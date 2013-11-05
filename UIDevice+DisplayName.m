@@ -43,9 +43,13 @@
     } else if ([device hasPrefix:@"iPod"]) {
         NSString *model = [device substringFromIndex:[@"iPod" length]];
         return [self iPodModel:[numberFormatter numberFromString:model]];
-    }
-
-    return [NSString stringWithFormat:@"%@ %@", [self localizedModel], [self systemVersion]];
+        
+    } else if ([device hasSuffix:@"86"] || [device isEqual:@"x86_64"]) {
+        BOOL isPhoneSimulator = [[UIScreen mainScreen] bounds].size.width < 768;
+        return isPhoneSimulator ? @"iPhone Simulator" : @"iPad Simulator";
+    };
+    
+    return [self localizedModel];
 }
 
 - (NSString *)device {
