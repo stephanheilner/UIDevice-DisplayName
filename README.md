@@ -8,5 +8,6 @@ UIDevice-DisplayName is available under the MIT license. See the LICENSE file fo
 
 ## Usage
 
+```objective-c
 NSLog(@"Device Display Name: %@", [[Device currentDevice] displayName]);
-
+```
