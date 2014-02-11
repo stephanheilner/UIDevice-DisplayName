@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/stephanheilner/UIDevice-DisplayName"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author             = { "Stephan Heilner" => "stephanheilner@gmail.com" }
-  s.source       = { :git => "http://github.com/stephanheilner/UIDevice-DisplayName.git", :tag => "#{spec.version}" }
+  s.source       = { :git => "http://github.com/stephanheilner/UIDevice-DisplayName.git", :tag => "#{s.version}" }
   s.source_files  = 'UIDevice+DisplayName.{h,m}'
 end
