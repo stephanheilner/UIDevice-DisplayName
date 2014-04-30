@@ -26,29 +26,37 @@
 @implementation UIDevice (DisplayName)
 
 - (NSString *)displayName {
+    return [self deviceDisplayNameConcise:NO];
+}
+
+- (NSString *)conciseDisplayName {
+    return [self deviceDisplayNameConcise:YES];
+}
+
+- (NSString *)deviceDisplayNameConcise:(BOOL)concise {
     NSString *device = [self device];
-    
+
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.decimalSeparator = @",";
-    
+
     if ([device hasPrefix:@"iPhone"]) {
         NSString *model = [device substringFromIndex:[@"iPhone" length]];
-        return [self iPhoneModel:[numberFormatter numberFromString:model]];
-        
+        return [self iPhoneModel:[numberFormatter numberFromString:model] concise:concise];
+
     } else if ([device hasPrefix:@"iPad"]) {
-        NSString *model = [device substringFromIndex:[@"iPad" length]];
+        NSString *model = [device substringFromIndex:[@"iPad" length] concise:concise];
         return [self iPadModel:[numberFormatter numberFromString:model]];
-        
+
     } else if ([device hasPrefix:@"iPod"]) {
         NSString *model = [device substringFromIndex:[@"iPod" length]];
         return [self iPodModel:[numberFormatter numberFromString:model]];
-        
+
     } else if ([device hasSuffix:@"86"] || [device isEqual:@"x86_64"]) {
-        BOOL isPhoneSimulator = [[UIScreen mainScreen] bounds].size.width < 768;
+        BOOL isPhoneSimulator = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
         return isPhoneSimulator ? @"iPhone Simulator" : @"iPad Simulator";
     };
-    
+
     return [self localizedModel];
 }
 
@@ -65,9 +73,9 @@
 
 - (NSString *)iPodModel:(NSNumber *)modelNumber {
     NSInteger intModelNumber = (NSInteger)([modelNumber floatValue] * 10);
-    
+
     NSString *modelName;
-    
+
     switch (intModelNumber) {
         case 11:
             modelName = @"1st Gen";
@@ -92,125 +100,172 @@
     return [NSString stringWithFormat:@"iPod Touch %@", modelName];
 }
 
-- (NSString *)iPadModel:(NSNumber *)modelNumber {
+- (NSString *)iPadModel:(NSNumber *)modelNumber concise:(BOOL)concise {
     NSInteger intModelNumber = (NSInteger)([modelNumber floatValue] * 10);
-    
+
     NSString *modelName;
-    
+    NSString *extraInfo;
+
     switch (intModelNumber) {
         case 11:
             modelName = @"1";
+            extraInfo = @"";
             break;
         case 21:
-            modelName = @"2 Wi-Fi";
+            modelName = @"2";
+            extraInfo = @" Wi-Fi";
             break;
         case 22:
-            modelName = @"2 GSM";
+            modelName = @"2";
+            extraInfo = @" GSM";
             break;
         case 23:
-            modelName = @"2 CDMA";
+            modelName = @"2";
+            extraInfo = @" CDMA";
             break;
         case 24:
-            modelName = @"2 New";
+            modelName = @"2";
+            extraInfo = @" New";
             break;
         case 25:
-            modelName = @"Mini Wi-Fi";
+            modelName = @"Mini";
+            extraInfo = @" Wi-Fi";
             break;
         case 26:
-            modelName = @"Mini GSM";
+            modelName = @"Mini";
+            extraInfo = @" GSM";
             break;
         case 27:
-            modelName = @"Mini CDMA";
+            modelName = @"Mini";
+            extraInfo = @" CDMA";
             break;
         case 31:
-            modelName = @"3 Wi-Fi";
+            modelName = @"3";
+            extraInfo = @" Wi-Fi";
             break;
         case 32:
-            modelName = @"3 GSM";
+            modelName = @"3";
+            extraInfo = @" GSM";
             break;
         case 33:
-            modelName = @"3 CDMA";
+            modelName = @"3";
+            extraInfo = @" CDMA";
             break;
         case 34:
-            modelName = @"4 Wi-Fi";
+            modelName = @"4";
+            extraInfo = @" Wi-Fi";
             break;
         case 35:
-            modelName = @"4 GSM";
+            modelName = @"4";
+            extraInfo = @" GSM";
             break;
         case 36:
-            modelName = @"4 GSM+CDMA";
+            modelName = @"4";
+            extraInfo = @" GSM+CDMA";
             break;
         case 41:
-            modelName = @"Air Wi-Fi";
+            modelName = @"Air";
+            extraInfo = @" Wi-Fi";
             break;
         case 42:
-            modelName = @"Air Cellular";
+            modelName = @"Air";
+            extraInfo = @" Cellular";
             break;
         case 44:
-            modelName = @"Mini 2 Wi-Fi";
+            modelName = @"Mini 2";
+            extraInfo = @" Wi-Fi";
             break;
         case 45:
-            modelName = @"Mini 2 Cellular";
+            modelName = @"Mini 2";
+            extraInfo = @" Cellular";
+            break;
+        case 46:
+            modelName = @"Mini 2";
+            extraInfo = @" China";
             break;
         default:
             modelName = @"Unknown";
+            extraInfo = @"";
             break;
     }
-    
-    return [NSString stringWithFormat:@"iPad %@", modelName];
+
+    return [NSString stringWithFormat:@"iPad %@%@", modelName, concise ? @"" : extraInfo];
 }
 
 - (NSString *)iPhoneModel:(NSNumber *)modelNumber {
     NSInteger intModelNumber = (NSInteger)([modelNumber floatValue] * 10);
-    
+
     NSString *modelName;
+    NSString *extraInfo;
 
     switch (intModelNumber) {
         case 11:
             modelName = @"2G";
+            extraInfo = @"";
             break;
         case 12:
             modelName = @"3G";
+            extraInfo = @"";
             break;
         case 21:
             modelName = @"3GS";
+            extraInfo = @"";
             break;
         case 31:
-            modelName = @"4 GSM";
+            modelName = @"4";
+            extraInfo = @" GSM";
             break;
         case 32:
-            modelName = @"4 8GB";
+            modelName = @"4";
+            extraInfo = @" 8GB";
             break;
         case 33:
-            modelName = @"4 CDMA";
+            modelName = @"4";
+            extraInfo = @" CDMA";
             break;
         case 41:
             modelName = @"4S";
+            extraInfo = @"";
             break;
         case 51:
-            modelName = @"5 GSM";
+            modelName = @"5";
+            extraInfo = @" GSM";
             break;
         case 52:
-            modelName = @"5 GSM+CDMA";
+            modelName = @"5";
+            extraInfo = @" GSM+CDMA";
             break;
         case 53:
-            modelName = @"5c GSM";
+            modelName = @"5c";
+            extraInfo = @" GSM";
             break;
         case 54:
-            modelName = @"5c GSM+CDMA";
+            modelName = @"5c";
+            extraInfo = @" GSM+CDMA";
             break;
         case 61:
-            modelName = @"5s GSM";
+            modelName = @"5s";
+            extraInfo = @" GSM";
             break;
         case 62:
-            modelName = @"5s GSM+CDMA";
+            modelName = @"5s";
+            extraInfo = @" GSM+CDMA";
+            break;
+        case 71:
+            modelName = @"6 Plus";
+            extraInfo = @"";
+            break;
+        case 72:
+            modelName = @"6";
+            extraInfo = @"";
             break;
         default:
             modelName = @"Unknown";
+            extraInfo = @"";
             break;
     }
-    
-    return [NSString stringWithFormat:@"iPhone %@", modelName];
+
+    return [NSString stringWithFormat:@"iPhone %@%@", modelName, concise ? @"" : extraInfo];
 }
 
 @end
