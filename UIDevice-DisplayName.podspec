@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "UIDevice-DisplayName"
-  s.version      = "1.0"
+  s.version      = "1.0.1"
   s.summary      = "Returns a friendly name for any iOS device."
   s.author       = 'Stephan Heilner'
   s.homepage     = "https://github.com/stephanheilner/UIDevice-DisplayName"

@@ -152,6 +152,9 @@
         case 45:
             modelName = @"Mini 2 Cellular";
             break;
+        case 46:
+            modelName = @"Mini 2 China";
+            break;
         default:
             modelName = @"Unknown";
             break;
