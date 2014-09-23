@@ -208,6 +208,12 @@
         case 62:
             modelName = @"5s GSM+CDMA";
             break;
+        case 71:
+            modelName = @"6 Plus";
+            break;
+        case 72:
+            modelName = @"6";
+            break;
         default:
             modelName = @"Unknown";
             break;
