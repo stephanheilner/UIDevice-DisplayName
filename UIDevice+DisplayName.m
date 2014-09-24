@@ -26,14 +26,14 @@
 @implementation UIDevice (DisplayName)
 
 - (NSString *)displayName {
-    return [self deviceDisplayNameConcise:NO];
+    return [self displayNameShowSubFamily:YES];
 }
 
-- (NSString *)conciseDisplayName {
-    return [self deviceDisplayNameConcise:YES];
+- (NSString *)displayModelName {
+    return [self displayNameShowSubFamily:NO];
 }
 
-- (NSString *)deviceDisplayNameConcise:(BOOL)concise {
+- (NSString *)displayNameShowSubFamily:(BOOL)showSubFamily {
     NSString *device = [self device];
 
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -42,19 +42,18 @@
 
     if ([device hasPrefix:@"iPhone"]) {
         NSString *model = [device substringFromIndex:[@"iPhone" length]];
-        return [self iPhoneModel:[numberFormatter numberFromString:model] concise:concise];
+        return [self iPhoneModel:[numberFormatter numberFromString:model] showSubFamily:showSubFamily];
 
     } else if ([device hasPrefix:@"iPad"]) {
-        NSString *model = [device substringFromIndex:[@"iPad" length] concise:concise];
-        return [self iPadModel:[numberFormatter numberFromString:model]];
+        NSString *model = [device substringFromIndex:[@"iPad" length]];
+        return [self iPadModel:[numberFormatter numberFromString:model] showSubFamily:showSubFamily];
 
     } else if ([device hasPrefix:@"iPod"]) {
         NSString *model = [device substringFromIndex:[@"iPod" length]];
         return [self iPodModel:[numberFormatter numberFromString:model]];
 
     } else if ([device hasSuffix:@"86"] || [device isEqual:@"x86_64"]) {
-        BOOL isPhoneSimulator = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
-        return isPhoneSimulator ? @"iPhone Simulator" : @"iPad Simulator";
+        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? @"iPhone Simulator" : @"iPad Simulator";
     };
 
     return [self localizedModel];
@@ -100,167 +99,154 @@
     return [NSString stringWithFormat:@"iPod Touch %@", modelName];
 }
 
-- (NSString *)iPadModel:(NSNumber *)modelNumber concise:(BOOL)concise {
+- (NSString *)iPadModel:(NSNumber *)modelNumber showSubFamily:(BOOL)showSubFamily {
     NSInteger intModelNumber = (NSInteger)([modelNumber floatValue] * 10);
 
     NSString *modelName;
-    NSString *extraInfo;
+    NSString *subFamily = @"";
 
     switch (intModelNumber) {
         case 11:
             modelName = @"1";
-            extraInfo = @"";
             break;
         case 21:
             modelName = @"2";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 22:
             modelName = @"2";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 23:
             modelName = @"2";
-            extraInfo = @" CDMA";
+            subFamily = @"CDMA";
             break;
         case 24:
             modelName = @"2";
-            extraInfo = @" New";
+            subFamily = @"New";
             break;
         case 25:
             modelName = @"Mini";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 26:
             modelName = @"Mini";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 27:
             modelName = @"Mini";
-            extraInfo = @" CDMA";
+            subFamily = @"CDMA";
             break;
         case 31:
             modelName = @"3";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 32:
             modelName = @"3";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 33:
             modelName = @"3";
-            extraInfo = @" CDMA";
+            subFamily = @"CDMA";
             break;
         case 34:
             modelName = @"4";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 35:
             modelName = @"4";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 36:
             modelName = @"4";
-            extraInfo = @" GSM+CDMA";
+            subFamily = @"GSM+CDMA";
             break;
         case 41:
             modelName = @"Air";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 42:
             modelName = @"Air";
-            extraInfo = @" Cellular";
+            subFamily = @"Cellular";
             break;
         case 44:
             modelName = @"Mini 2";
-            extraInfo = @" Wi-Fi";
+            subFamily = @"Wi-Fi";
             break;
         case 45:
             modelName = @"Mini 2";
-            extraInfo = @" Cellular";
+            subFamily = @"Cellular";
             break;
         case 46:
             modelName = @"Mini 2";
-            extraInfo = @" China";
-            break;
-        case 46:
-            modelName = @"Mini 2 China";
+            subFamily = @"China";
             break;
         default:
             modelName = @"Unknown";
-            extraInfo = @"";
             break;
     }
 
-    return [NSString stringWithFormat:@"iPad %@%@", modelName, concise ? @"" : extraInfo];
+    if (showSubFamily && [subFamily length] > 0) {
+        return [NSString stringWithFormat:@"iPad %@ %@", modelName, subFamily];
+    }
+    
+    return [NSString stringWithFormat:@"iPad %@", modelName];
 }
 
-- (NSString *)iPhoneModel:(NSNumber *)modelNumber {
+- (NSString *)iPhoneModel:(NSNumber *)modelNumber showSubFamily:(BOOL)showSubFamily {
     NSInteger intModelNumber = (NSInteger)([modelNumber floatValue] * 10);
 
     NSString *modelName;
-    NSString *extraInfo;
+    NSString *subFamily = @"";
 
     switch (intModelNumber) {
         case 11:
             modelName = @"2G";
-            extraInfo = @"";
             break;
         case 12:
             modelName = @"3G";
-            extraInfo = @"";
             break;
         case 21:
             modelName = @"3GS";
-            extraInfo = @"";
             break;
         case 31:
             modelName = @"4";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 32:
             modelName = @"4";
-            extraInfo = @" 8GB";
+            subFamily = @"8GB";
             break;
         case 33:
             modelName = @"4";
-            extraInfo = @" CDMA";
+            subFamily = @"CDMA";
             break;
         case 41:
             modelName = @"4S";
-            extraInfo = @"";
             break;
         case 51:
             modelName = @"5";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 52:
             modelName = @"5";
-            extraInfo = @" GSM+CDMA";
+            subFamily = @"GSM+CDMA";
             break;
         case 53:
             modelName = @"5c";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 54:
             modelName = @"5c";
-            extraInfo = @" GSM+CDMA";
+            subFamily = @"GSM+CDMA";
             break;
         case 61:
             modelName = @"5s";
-            extraInfo = @" GSM";
+            subFamily = @"GSM";
             break;
         case 62:
             modelName = @"5s";
-            extraInfo = @" GSM+CDMA";
-            break;
-        case 71:
-            modelName = @"6 Plus";
-            extraInfo = @"";
-            break;
-        case 72:
-            modelName = @"6";
-            extraInfo = @"";
+            subFamily = @"GSM+CDMA";
             break;
         case 71:
             modelName = @"6 Plus";
@@ -270,11 +256,14 @@
             break;
         default:
             modelName = @"Unknown";
-            extraInfo = @"";
             break;
     }
 
-    return [NSString stringWithFormat:@"iPhone %@%@", modelName, concise ? @"" : extraInfo];
+    if (showSubFamily && [subFamily length] > 0) {
+        return [NSString stringWithFormat:@"iPhone %@ %@", modelName, subFamily];
+    }
+    
+    return [NSString stringWithFormat:@"iPhone %@", modelName];
 }
 
 @end

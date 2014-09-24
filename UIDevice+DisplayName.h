@@ -23,6 +23,7 @@
 @interface UIDevice (DisplayName)
 
 - (NSString *)displayName;
-- (NSString *)conciseDisplayName;
+
+- (NSString *)displayModelName;
 
 @end

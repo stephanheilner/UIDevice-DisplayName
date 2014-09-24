@@ -1,10 +1,10 @@
 # UIDevice-DisplayName
 
 displayName
-Returns a friendly name for any iOS device.
+Returns a friendly name for an iOS device.
 
-conciseDisplayName
-Returns a shorter friendly name for any iOS decivce by leaving out celluar type (i.e iPhone 5 GSM will be iPhone 5)
+displayModelName
+Returns a shorter friendly name for an iOS device by only including the device model (leaving out celluar type, i.e iPhone 5 GSM will be iPhone 5)
 
 ## License
 
@@ -14,4 +14,6 @@ UIDevice-DisplayName is available under the MIT license. See the LICENSE file fo
 
 ```objective-c
 NSLog(@"Device Display Name: %@", [[UIDevice currentDevice] displayName]);
+
+NSLog(@"Device Display Model Name: %@", [[UIDevice currentDevice] displayModelName]);
 ```
