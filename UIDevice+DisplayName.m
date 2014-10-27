@@ -169,6 +169,10 @@
             modelName = @"Air";
             subFamily = @"Cellular";
             break;
+        case 43:
+            modelName = @"Air";
+            subFamily = @"China";
+            break;
         case 44:
             modelName = @"Mini 2";
             subFamily = @"Wi-Fi";
@@ -180,6 +184,22 @@
         case 46:
             modelName = @"Mini 2";
             subFamily = @"China";
+            break;
+        case 47:
+            modelName = @"Mini 3";
+            subFamily = @"Wi-Fi";
+            break;
+        case 48:
+            modelName = @"Mini 3";
+            subFamily = @"Cellular";
+            break;
+        case 53:
+            modelName = @"Air 2";
+            subFamily = @"Wi-Fi";
+            break;
+        case 54:
+            modelName = @"Air 2";
+            subFamily = @"Cellular";
             break;
         default:
             modelName = @"Unknown";
