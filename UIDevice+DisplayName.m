@@ -91,6 +91,9 @@
         case 51:
             modelName = @"5th Gen";
             break;
+        case 71:
+            modelName = @"6th Gen";
+            break;
         default:
             modelName = @"Unknown";
             break;
@@ -193,6 +196,14 @@
             modelName = @"Mini 3";
             subFamily = @"Cellular";
             break;
+        case 51:
+            modelName = @"Mini 4";
+            subFamily = @"Wi-Fi";
+            break;
+        case 52:
+            modelName = @"Mini 4";
+            subFamily = @"Cellular";
+            break;
         case 53:
             modelName = @"Air 2";
             subFamily = @"Wi-Fi";
@@ -273,6 +284,12 @@
             break;
         case 72:
             modelName = @"6";
+            break;
+        case 81:
+            modelName = @"6s";
+            break;
+        case 82:
+            modelName = @"6s Plus";
             break;
         default:
             modelName = @"Unknown";
