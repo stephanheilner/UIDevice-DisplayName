@@ -212,6 +212,14 @@
             modelName = @"Air 2";
             subFamily = @"Cellular";
             break;
+        case 67:
+            modelName = @"Pro";
+            subFamily = @"Wi-Fi";
+            break;
+        case 68:
+            modelName = @"Pro";
+            subFamily = @"Cellular";
+            break;
         default:
             modelName = @"Unknown";
             break;
