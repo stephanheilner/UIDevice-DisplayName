@@ -15,5 +15,5 @@ UIDevice-DisplayName is available under the MIT license. See the LICENSE file fo
 ```swift
 NSLog("Device Display Name: %@", UIDevice.currentDevice().displayName())
 
-NSLog("Device Display Model Name: %@", UIDevice.currentDevice().displayName(includeType: true))
+NSLog("Device Display Name With Type: %@", UIDevice.currentDevice().displayName(includeType: true))
 ```
