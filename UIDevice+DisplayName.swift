@@ -143,6 +143,10 @@ public extension UIDevice {
             name = "6s Plus"
         case "8,4":
             name = "SE"
+        case "9,1", "9,3":
+            name = "7"
+        case "9,2", "9,4":
+            name = "7 Plus"
         default:
             name = "Unknown"
         }
