@@ -26,32 +26,32 @@ public extension UIDevice {
         switch deviceIdentifier() {
         case let simulator where simulator.hasPrefix("x86"):
             switch userInterfaceIdiom {
-            case .Unspecified:
+            case .unspecified:
                 return "Unspecified Simulator"
-            case .Phone:
+            case .phone:
                 return "iPhone Simulator"
-            case .Pad:
+            case .pad:
                 return "iPad Simulator"
-            case .TV:
+            case .tv:
                 return "Apple TV Simulator"
-            case .CarPlay:
+            case .carPlay:
                 return "CarPlay Simulator"
             }
         case let device:
-            if let range = device.rangeOfString("iPhone") {
-                return iPhoneDisplayName(device.substringFromIndex(range.endIndex), includeType: includeType)
+            if let range = device.range(of: "iPhone") {
+                return iPhoneDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
             }
-            if let range = device.rangeOfString("iPod") {
-                return iPodTouchDisplayName(device.substringFromIndex(range.endIndex))
+            if let range = device.range(of: "iPod") {
+                return iPodTouchDisplayName(model: device.substring(from: range.upperBound))
             }
-            if let range = device.rangeOfString("iPad") {
-                return iPadDisplayName(device.substringFromIndex(range.endIndex), includeType: includeType)
+            if let range = device.range(of: "iPad") {
+                return iPadDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
             }
-            if let range = device.rangeOfString("Watch") {
-                return watchDisplayName(device.substringFromIndex(range.endIndex))
+            if let range = device.range(of: "Watch") {
+                return watchDisplayName(model: device.substring(from: range.upperBound))
             }
-            if let range = device.rangeOfString("AppleTV") {
-                return appleTVDisplayName(device.substringFromIndex(range.endIndex))
+            if let range = device.range(of: "AppleTV") {
+                return appleTVDisplayName(model: device.substring(from: range.upperBound))
             }
             return device
         default:
@@ -292,7 +292,7 @@ public extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         return machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
             
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
