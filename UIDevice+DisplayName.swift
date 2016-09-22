@@ -22,7 +22,13 @@
 
 public extension UIDevice {
     
-    public func displayName(includeType includeType: Bool = true) -> String {
+    private static let WiFi = "Wi-Fi"
+    private static let GSM = "GSM"
+    private static let CDMA = "CDMA"
+    private static let GSM_CMDA = "GSM+CDMA"
+    private static let Cellular = "Cellular"
+    
+    public func displayName(includeType: Bool = true) -> String {
         switch deviceIdentifier() {
         case let simulator where simulator.hasPrefix("x86"):
             switch userInterfaceIdiom {
@@ -72,7 +78,7 @@ public extension UIDevice {
         case "5,3":
             name = "4th Gen"
         default:
-            name = "Unknown"
+            name = "Unknown \"\(model)\""
         }
         
         return "Apple TV \(name)"
@@ -83,11 +89,19 @@ public extension UIDevice {
         
         switch model {
         case "1,1":
-            name = "38 mm"
+            name = "1st Gen (38 mm)"
         case "1,2":
-            name = "42 mm"
+            name = "1st Gen (42 mm)"
+        case "2,6":
+            name = "Series 1 (38 mm)"
+        case "2,7":
+            name = "Series 1 (42 mm)"
+        case "2,3":
+            name = "Series 2 (38 mm)"
+        case "2,4":
+            name = "Series 2 (42 mm)"
         default:
-            name = "Unknown"
+            name = "Unknown \"\(model)\""
         }
         
         return "Apple Watch \(name)"
@@ -106,33 +120,33 @@ public extension UIDevice {
             name = "3GS"
         case "3,1":
             name = "4"
-            type = "GSM"
+            type = UIDevice.GSM
         case "3,2":
             name = "4"
             type = "8GB"
         case "3,3":
             name = "4"
-            type = "CDMA"
+            type = UIDevice.CDMA
         case "4,1":
             name = "4S"
         case "5,1":
             name = "5"
-            type = "GSM"
+            type = UIDevice.GSM
         case "5,2":
             name = "5"
-            type = "GSM+CDMA"
+            type = UIDevice.GSM_CMDA
         case "5,3":
             name = "5c"
-            type = "GSM"
+            type = UIDevice.GSM
         case "5,4":
             name = "5c"
-            type = "GSM+CDMA"
+            type = UIDevice.GSM_CMDA
         case "6,1":
             name = "5s"
-            type = "GSM"
+            type = UIDevice.GSM
         case "6,2":
             name = "5s"
-            type = "GSM+CDMA"
+            type = UIDevice.GSM_CMDA
         case "7,1":
             name = "6 Plus"
         case "7,2":
@@ -148,7 +162,7 @@ public extension UIDevice {
         case "9,2", "9,4":
             name = "7 Plus"
         default:
-            name = "Unknown"
+            name = "Unknown \"\(model)\""
         }
         
         if includeType, let type = type {
@@ -174,7 +188,7 @@ public extension UIDevice {
         case "7,1":
             name = "6th Gen"
         default:
-            name = "Unknown"
+            name = "Unknown \"\(model)\""
         }
         
         return "iPod Touch \(name)"
@@ -189,96 +203,96 @@ public extension UIDevice {
             name = "1"
         case "2,1":
             name = "2"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "2,2":
             name = "2"
-            type = "GSM"
+            type = UIDevice.GSM
         case "2,3":
             name = "2"
-            type = "CDMA"
+            type = UIDevice.CDMA
         case "2,4":
             name = "2"
-            type = "New"
+            type = UIDevice.WiFi
         case "2,5":
             name = "Mini"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "2,6":
             name = "Mini"
-            type = "GSM"
+            type = UIDevice.GSM
         case "2,7":
             name = "Mini"
-            type = "CDMA"
+            type = UIDevice.CDMA
         case "3,1":
             name = "3"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "3,2":
             name = "3"
-            type = "GSM"
+            type = UIDevice.GSM
         case "3,3":
             name = "3"
-            type = "CDMA"
+            type = UIDevice.CDMA
         case "3,4":
             name = "4"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "3,5":
             name = "4"
-            type = "GSM"
+            type = UIDevice.GSM
         case "3,6":
             name = "4"
-            type = "GSM+CDMA"
+            type = UIDevice.GSM_CMDA
         case "4,1":
             name = "Air"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "4,2":
             name = "Air"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "4,3":
             name = "Air"
             type = "China"
         case "4,4":
             name = "Mini 2"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "4,5":
             name = "Mini 2"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "4,6":
             name = "Mini 2"
-            type = "Cellular, China"
+            type = "\(UIDevice.Cellular), China"
         case "4,7":
             name = "Mini 3"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "4,8":
             name = "Mini 3"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "4,9":
             name = "Mini 3"
-            type = "Cellular, China"
+            type = "\(UIDevice.Cellular), China"
         case "5,1":
             name = "Mini 4"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "5,2":
             name = "Mini 4"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "5,3":
             name = "Air 2"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "5,4":
             name = "Air 2"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "6,3":
             name = "Pro (9.7 inch)"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "6,4":
             name = "Pro (9.7 inch)"
-            type = "Cellular"
+            type = UIDevice.Cellular
         case "6,7":
             name = "Pro (12.9 inch)"
-            type = "Wi-Fi"
+            type = UIDevice.WiFi
         case "6,8":
             name = "Pro (12.9 inch)"
-            type = "Cellular"
+            type = UIDevice.Cellular
         default:
-            name = "Unknown"
+            name = "Unknown \"\(model)\""
         }
 
         if includeType, let type = type {
