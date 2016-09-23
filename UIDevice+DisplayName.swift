@@ -28,36 +28,36 @@ public extension UIDevice {
     private static let GSM_CMDA = "GSM+CDMA"
     private static let Cellular = "Cellular"
     
-    public func displayName(includeType: Bool = true) -> String {
+    public func displayName(includeType includeType: Bool = true) -> String {
         switch deviceIdentifier() {
         case let simulator where simulator.hasPrefix("x86"):
             switch userInterfaceIdiom {
-            case .unspecified:
+            case .Unspecified:
                 return "Unspecified Simulator"
-            case .phone:
+            case .Phone:
                 return "iPhone Simulator"
-            case .pad:
+            case .Pad:
                 return "iPad Simulator"
-            case .tv:
+            case .TV:
                 return "Apple TV Simulator"
-            case .carPlay:
+            case .CarPlay:
                 return "CarPlay Simulator"
             }
         case let device:
-            if let range = device.range(of: "iPhone") {
-                return iPhoneDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
+            if let range = device.rangeOfString("iPhone") {
+                return iPhoneDisplayName(model: device.substringFromIndex(range.endIndex), includeType: includeType)
             }
-            if let range = device.range(of: "iPod") {
-                return iPodTouchDisplayName(model: device.substring(from: range.upperBound))
+            if let range = device.rangeOfString("iPod") {
+                return iPodTouchDisplayName(model: device.substringFromIndex(range.endIndex))
             }
-            if let range = device.range(of: "iPad") {
-                return iPadDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
+            if let range = device.rangeOfString("iPad") {
+                return iPadDisplayName(model: device.substringFromIndex(range.endIndex), includeType: includeType)
             }
-            if let range = device.range(of: "Watch") {
-                return watchDisplayName(model: device.substring(from: range.upperBound))
+            if let range = device.rangeOfString("Watch") {
+                return watchDisplayName(model: device.substringFromIndex(range.endIndex))
             }
-            if let range = device.range(of: "AppleTV") {
-                return appleTVDisplayName(model: device.substring(from: range.upperBound))
+            if let range = device.rangeOfString("AppleTV") {
+                return appleTVDisplayName(model: device.substringFromIndex(range.endIndex))
             }
             return device
         default:
@@ -67,7 +67,7 @@ public extension UIDevice {
         return "Unknown"
     }
     
-    private func appleTVDisplayName(model: String) -> String {
+    private func appleTVDisplayName(model model: String) -> String {
         let name: String
         
         switch model {
@@ -84,7 +84,7 @@ public extension UIDevice {
         return "Apple TV \(name)"
     }
     
-    private func watchDisplayName(model: String) -> String {
+    private func watchDisplayName(model model: String) -> String {
         let name: String
         
         switch model {
@@ -107,7 +107,7 @@ public extension UIDevice {
         return "Apple Watch \(name)"
     }
     
-    private func iPhoneDisplayName(model: String, includeType: Bool) -> String {
+    private func iPhoneDisplayName(model model: String, includeType: Bool) -> String {
         let name: String
         var type: String?
         
@@ -171,7 +171,7 @@ public extension UIDevice {
         return "iPhone \(name)"
     }
     
-    private func iPodTouchDisplayName(model: String) -> String {
+    private func iPodTouchDisplayName(model model: String) -> String {
         let name: String
         
         switch model {
@@ -194,7 +194,7 @@ public extension UIDevice {
         return "iPod Touch \(name)"
     }
     
-    private func iPadDisplayName(model: String, includeType: Bool) -> String {
+    private func iPadDisplayName(model model: String, includeType: Bool) -> String {
         let name: String
         var type: String?
         
@@ -306,7 +306,7 @@ public extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         return machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            guard let value = element.value as? Int8 where value != 0 else { return identifier }
             
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
