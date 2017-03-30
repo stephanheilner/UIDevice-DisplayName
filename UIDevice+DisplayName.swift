@@ -60,11 +60,7 @@ public extension UIDevice {
                 return appleTVDisplayName(model: device.substring(from: range.upperBound))
             }
             return device
-        default:
-            break
         }
-        
-        return "Unknown"
     }
     
     private func appleTVDisplayName(model: String) -> String {
@@ -291,10 +287,16 @@ public extension UIDevice {
         case "6,8":
             name = "Pro (12.9 inch)"
             type = UIDevice.Cellular
+        case "6,11":
+            name = "5"
+            type = UIDevice.WiFi
+        case "6,12":
+            name = "5"
+            type = UIDevice.Cellular
         default:
             name = "Unknown \"\(model)\""
         }
-
+        
         if includeType, let type = type {
             return "iPad \(name) \(type)"
         }
