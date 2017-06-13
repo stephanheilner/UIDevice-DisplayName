@@ -293,7 +293,19 @@ public extension UIDevice {
         case "6,12":
             name = "5"
             type = UIDevice.Cellular
-        default:
+		case "7,1":
+			name = "Pro (12.9 inch, 2nd Gen)"
+            type = UIDevice.WiFi
+		case "7,2":
+			name = "Pro (12.9 inch, 2nd Gen)"
+            type = UIDevice.Cellular
+		case "7,3":
+			name = "Pro (10.5 inch)"
+            type = UIDevice.WiFi
+		case "7,4":
+			name = "Pro (10.5 inch)"
+            type = UIDevice.Cellular
+		default:
             name = "Unknown \"\(model)\""
         }
         
