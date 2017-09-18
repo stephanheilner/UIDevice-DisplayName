@@ -54,7 +54,7 @@ public extension UIDevice {
                 return iPadDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
             }
             if let range = device.range(of: "Watch") {
-                return watchDisplayName(model: device.substring(from: range.upperBound))
+                return watchDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
             }
             if let range = device.range(of: "AppleTV") {
                 return appleTVDisplayName(model: device.substring(from: range.upperBound))
@@ -73,6 +73,8 @@ public extension UIDevice {
             name = "3rd Gen"
         case "5,3":
             name = "4th Gen"
+        case "6,2":
+            name = "4K"
         default:
             name = "Unknown \"\(model)\""
         }
@@ -80,8 +82,9 @@ public extension UIDevice {
         return "Apple TV \(name)"
     }
     
-    private func watchDisplayName(model: String) -> String {
+    private func watchDisplayName(model: String, includeType: Bool) -> String {
         let name: String
+        var type: String?
         
         switch model {
         case "1,1":
@@ -96,10 +99,25 @@ public extension UIDevice {
             name = "Series 2 (38 mm)"
         case "2,4":
             name = "Series 2 (42 mm)"
+        case "3,1":
+            name = "Series 3 (38 mm)"
+            type = UIDevice.Cellular
+        case "3,2":
+            name = "Series 3 (42 mm)"
+            type = UIDevice.Cellular
+        case "3,3":
+            name = "Series 3 (38 mm)"
+            type = UIDevice.WiFi
+        case "3,4":
+            name = "Series 3 (42 mm)"
+            type = UIDevice.WiFi
         default:
             name = "Unknown \"\(model)\""
         }
         
+        if includeType, let type = type {
+            return "Apple Watch \(name) \(type)"
+        }
         return "Apple Watch \(name)"
     }
     
@@ -157,6 +175,12 @@ public extension UIDevice {
             name = "7"
         case "9,2", "9,4":
             name = "7 Plus"
+        case "10,1", "10,4":
+            name = "8"
+        case "10,2", "10,5":
+            name = "8 Plus"
+        case "10,3", "10,6":
+            name = "X"
         default:
             name = "Unknown \"\(model)\""
         }
