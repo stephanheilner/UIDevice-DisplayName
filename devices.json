@@ -1,0 +1,526 @@
+{
+  "deviceTypes": {
+    "iPhone": "iPhone",
+    "iPad": "iPad",
+    "iPod": "iPod Touch",
+    "Watch": "Apple Watch",
+    "AppleTV": "Apple TV"
+  },
+  "devices": {
+    "iPhone": [
+      {
+        "iPhone1,1": {
+          "name": "2G"
+        }
+      },
+      {
+        "iPhone1,2": {
+          "name": "3G"
+        }
+      },
+      {
+        "iPhone2,1": {
+          "name": "3GS"
+        }
+      },
+      {
+        "iPhone3,1": {
+          "name": "4",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone3,2": {
+          "name": "4",
+          "type": "8GB"
+        }
+      },
+      {
+        "iPhone3,3": {
+          "name": "4",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPhone4,1": {
+          "name": "4S"
+        }
+      },
+      {
+        "iPhone5,1": {
+          "name": "5",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone5,2": {
+          "name": "5",
+          "type": "GSM+CDMA"
+        }
+      },
+      {
+        "iPhone5,3": {
+          "name": "5c",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone5,4": {
+          "name": "5c",
+          "type": "GSM+CDMA"
+        }
+      },
+      {
+        "iPhone6,1": {
+          "name": "5s",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone6,2": {
+          "name": "5c",
+          "type": "GSM+CDMA"
+        }
+      },
+      {
+        "iPhone7,1": {
+          "name": "6",
+          "type": "Plus"
+        }
+      },
+      {
+        "iPhone7,2": {
+          "name": "6"
+        }
+      },
+      {
+        "iPhone8,1": {
+          "name": "6s"
+        }
+      },
+      {
+        "iPhone8,2": {
+          "name": "6s Plus"
+        }
+      },
+      {
+        "iPhone8,4": {
+          "name": "SE"
+        }
+      },
+      {
+        "iPhone9,1": {
+          "name": "7"
+        }
+      },
+      {
+        "iPhone9,2": {
+          "name": "7 Plus",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPhone9,3": {
+          "name": "7",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPhone9,4": {
+          "name": "7 Plus"
+        }
+      },
+      {
+        "iPhone10,1": {
+          "name": "8",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPhone10,2": {
+          "name": "8 Plus",
+          "type": "GSM+CDMA"
+        }
+      },
+      {
+        "iPhone10,3": {
+          "name": "X",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone10,4": {
+          "name": "8",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone10,5": {
+          "name": "8 Plus",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPhone10,6": {
+          "name": "X",
+          "type": "GSM+CDMA"
+        }
+      }
+    ],
+    "iPad": [
+      {
+        "iPad1,1": {
+          "name": "1"
+        }
+      },
+      {
+        "iPad2,1": {
+          "name": "2",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad2,2": {
+          "name": "2",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPad2,3": {
+          "name": "2",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPad2,4": {
+          "name": "2",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad2,5": {
+          "name": "Mini",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad2,6": {
+          "name": "Mini",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPad2,7": {
+          "name": "Mini",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPad3,1": {
+          "name": "3",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad3,2": {
+          "name": "3",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPad3,3": {
+          "name": "3",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPad3,4": {
+          "name": "4",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad3,5": {
+          "name": "4",
+          "type": "GSM"
+        }
+      },
+      {
+        "iPad3,6": {
+          "name": "4",
+          "type": "CDMA"
+        }
+      },
+      {
+        "iPad4,1": {
+          "name": "Air",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad4,2": {
+          "name": "Air",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad4,3": {
+          "name": "Air",
+          "type": "Cellular, China"
+        }
+      },
+      {
+        "iPad4,4": {
+          "name": "Mini 2",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad4,5": {
+          "name": "Mini 2",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad4,6": {
+          "name": "Mini 2",
+          "type": "Cellular, China"
+        }
+      },
+      {
+        "iPad4,7": {
+          "name": "Mini 3",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad4,8": {
+          "name": "Mini 3",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad4,9": {
+          "name": "Mini 3",
+          "type": "Cellular, China"
+        }
+      },
+      {
+        "iPad5,1": {
+          "name": "Mini 4",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad5,2": {
+          "name": "Mini 4",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad5,3": {
+          "name": "Air 2",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad5,4": {
+          "name": "Air 2",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad6,3": {
+          "name": "Pro (9.7 inch)",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad6,4": {
+          "name": "Pro (9.7 inch)",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad6,7": {
+          "name": "Pro (12.9 inch)",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad6,8": {
+          "name": "Pro (12.9 inch)",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad6,11": {
+          "name": "5",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad6,12": {
+          "name": "5",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad7,1": {
+          "name": "Pro 2 (12.9 inch)",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad7,2": {
+          "name": "Pro 2 (12.9 inch)",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad7,3": {
+          "name": "Pro (10.5 inch)",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad7,4": {
+          "name": "Pro (10.5 inch)",
+          "type": "Cellular"
+        }
+      },
+      {
+        "iPad7,5": {
+          "name": "6",
+          "type": "Wi-Fi"
+        }
+      },
+      {
+        "iPad7,6": {
+          "name": "6",
+          "type": "Cellular"
+        }
+      }
+    ],
+    "iPod Touch": [
+      {
+        "iPod1,1": {
+          "name": "1st Gen"
+        }
+      },
+      {
+        "iPod2,1": {
+          "name": "2nd Gen"
+        }
+      },
+      {
+        "iPod3,1": {
+          "name": "3rd Gen"
+        }
+      },
+      {
+        "iPod4,1": {
+          "name": "4th Gen"
+        }
+      },
+      {
+        "iPod5,1": {
+          "name": "5th Gen"
+        }
+      },
+      {
+        "iPod7,1": {
+          "name": "6th Gen"
+        }
+      }
+    ],
+    "Apple Watch": [
+      {
+        "Watch1,1": {
+          "name": "38 mm"
+        }
+      },
+      {
+        "Watch1,2": {
+          "name": "42 mm"
+        }
+      },
+      {
+        "Watch2,3": {
+          "name": "Series 2, 38 mm"
+        }
+      },
+      {
+        "Watch2,4": {
+          "name": "Series 2, 42 mm"
+        }
+      },
+      {
+        "Watch2,6": {
+          "name": "Series 1, 38 mm"
+        }
+      },
+      {
+        "Watch2,7": {
+          "name": "Series 1, 42 mm"
+        }
+      },
+      {
+        "Watch3,1": {
+          "name": "Series 3, 38 mm",
+          "type": "Cellular"
+        }
+      },
+      {
+        "Watch3,2": {
+          "name": "Series 3, 42 mm",
+          "type": "Cellular"
+        }
+      },
+      {
+        "Watch3,3": {
+          "name": "Series 3, 38 mm"
+        }
+      },
+      {
+        "Watch3,4": {
+          "name": "Series 3, 42 mm"
+        }
+      }
+    ],
+    "Apple TV": [
+      {
+        "AppleTV1,1": {
+          "name": "1st Gen"
+        }
+      },
+      {
+        "AppleTV2,1": {
+          "name": "2nd Gen"
+        }
+      },
+      {
+        "AppleTV3,1": {
+          "name": "3rd Gen",
+          "type": "2012"
+        }
+      },
+      {
+        "AppleTV3,2": {
+          "name": "3rd Gen",
+          "type": "2013"
+        }
+      },
+      {
+        "AppleTV5,3": {
+          "name": "4th Gen"
+        }
+      },
+      {
+        "AppleTV6,2": {
+          "name": "4K"
+        }
+      }
+    ]
+  }
+}
