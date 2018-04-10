@@ -1,6 +1,6 @@
 //  UIDevice+DisplayName.m
 //
-// Copyright (c) 2013 Stephan Heilner
+// Copyright (c) 2018 Stephan Heilner
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,16 +20,59 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+
+private class DummyClassToGetBundle {}
+
 public extension UIDevice {
     
-    private static let WiFi = "Wi-Fi"
-    private static let GSM = "GSM"
-    private static let CDMA = "CDMA"
-    private static let GSM_CMDA = "GSM+CDMA"
-    private static let Cellular = "Cellular"
+    fileprivate static let devicesFileURL: URL? = {
+        guard let devicesFileURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last?.appendingPathComponent("UIDevice").appendingPathComponent("devices.json") else { return nil }
+        
+        if !FileManager.default.fileExists(atPath: devicesFileURL.path) {
+            let localFileURL = Bundle(for: DummyClassToGetBundle.self).url(forResource: "devices", withExtension: "json")
+            do {
+                try FileManager.default.createDirectory(at: devicesFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+                if let localFileURL = localFileURL {
+                    try FileManager.default.copyItem(at: localFileURL, to: devicesFileURL)
+                }
+            } catch {
+                print("Error copying devices.json file", error)
+                return localFileURL
+            }
+        }
+        
+        return devicesFileURL
+    }()
     
-    public func displayName(includeType: Bool = true) -> String {
-        switch deviceIdentifier() {
+    fileprivate static var deviceTypes: [String: String] = {
+        guard let devicesFileURL = devicesFileURL else { return [:] }
+        
+        do {
+            let jsonData = try Data(contentsOf: devicesFileURL)
+            return try (JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any])?["deviceTypes"] as? [String: String] ?? [:]
+        } catch {
+            print("Unable to load devices", error)
+            return [:]
+        }
+    }()
+    
+    fileprivate static var devices: [String: Any] = {
+        guard let devicesFileURL = devicesFileURL else { return [:] }
+        
+        do {
+            let jsonData = try Data(contentsOf: devicesFileURL)
+            return (try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any])?["devices"] as? [String: Any] ?? [:]
+        } catch {
+            print("Unable to load devices", error)
+            return [:]
+        }
+    }()
+    
+    public func displayName(includeType: Bool = true, deviceIdentifier: String? = nil) -> String {
+        checkForUpdates()
+        
+        switch deviceIdentifier ?? self.deviceIdentifier() {
         case let simulator where simulator.hasPrefix("x86"):
             switch userInterfaceIdiom {
             case .unspecified:
@@ -44,299 +87,44 @@ public extension UIDevice {
                 return "CarPlay Simulator"
             }
         case let device:
-            if let range = device.range(of: "iPhone") {
-                return iPhoneDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
-            }
-            if let range = device.range(of: "iPod") {
-                return iPodTouchDisplayName(model: device.substring(from: range.upperBound))
-            }
-            if let range = device.range(of: "iPad") {
-                return iPadDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
-            }
-            if let range = device.range(of: "Watch") {
-                return watchDisplayName(model: device.substring(from: range.upperBound), includeType: includeType)
-            }
-            if let range = device.range(of: "AppleTV") {
-                return appleTVDisplayName(model: device.substring(from: range.upperBound))
+            for (prefix, name) in UIDevice.deviceTypes {
+                guard let range = device.range(of: prefix) else { continue }
+
+                return displayName(for: name, prefix: prefix, model: String(device[range.upperBound...]), includeType: includeType)
             }
             return device
         }
     }
     
-    private func appleTVDisplayName(model: String) -> String {
-        let name: String
+    private func displayName(for deviceName: String, prefix: String, model: String, includeType: Bool) -> String {
+        let unknownDevice = "Unknown \(deviceName)"
         
-        switch model {
-        case "2,1":
-            name = "2nd Gen"
-        case "3,1", "3,2":
-            name = "3rd Gen"
-        case "5,3":
-            name = "4th Gen"
-        case "6,2":
-            name = "4K"
-        default:
-            name = "Unknown \"\(model)\""
-        }
+        guard let devices = UIDevice.devices[deviceName] as? [[String: Any]] else { return unknownDevice }
         
-        return "Apple TV \(name)"
-    }
-    
-    private func watchDisplayName(model: String, includeType: Bool) -> String {
-        let name: String
+        var name: String?
         var type: String?
         
-        switch model {
-        case "1,1":
-            name = "1st Gen (38 mm)"
-        case "1,2":
-            name = "1st Gen (42 mm)"
-        case "2,6":
-            name = "Series 1 (38 mm)"
-        case "2,7":
-            name = "Series 1 (42 mm)"
-        case "2,3":
-            name = "Series 2 (38 mm)"
-        case "2,4":
-            name = "Series 2 (42 mm)"
-        case "3,1":
-            name = "Series 3 (38 mm)"
-            type = UIDevice.Cellular
-        case "3,2":
-            name = "Series 3 (42 mm)"
-            type = UIDevice.Cellular
-        case "3,3":
-            name = "Series 3 (38 mm)"
-            type = UIDevice.WiFi
-        case "3,4":
-            name = "Series 3 (42 mm)"
-            type = UIDevice.WiFi
-        default:
-            name = "Unknown \"\(model)\""
+        for device in devices {
+            guard let deviceIdentifier = device.keys.first, deviceIdentifier == "\(prefix)\(model)" else { continue }
+            
+            for (key, value) in device.values.first as? [String: String] ?? [:] {
+                switch key {
+                case "name":
+                    name = value
+                case "type":
+                    type = value
+                default: ()
+                }
+            }
         }
         
-        if includeType, let type = type {
-            return "Apple Watch \(name) \(type)"
+        if let name = name {
+            if includeType, let type = type {
+                return "\(deviceName) \(name) (\(type))"
+            }
+            return "\(deviceName) \(name)"
         }
-        return "Apple Watch \(name)"
-    }
-    
-    private func iPhoneDisplayName(model: String, includeType: Bool) -> String {
-        let name: String
-        var type: String?
-        
-        switch model {
-        case "1,1":
-            name = "2G"
-        case "1,2":
-            name = "3G"
-        case "2,1":
-            name = "3GS"
-        case "3,1":
-            name = "4"
-            type = UIDevice.GSM
-        case "3,2":
-            name = "4"
-            type = "8GB"
-        case "3,3":
-            name = "4"
-            type = UIDevice.CDMA
-        case "4,1":
-            name = "4S"
-        case "5,1":
-            name = "5"
-            type = UIDevice.GSM
-        case "5,2":
-            name = "5"
-            type = UIDevice.GSM_CMDA
-        case "5,3":
-            name = "5c"
-            type = UIDevice.GSM
-        case "5,4":
-            name = "5c"
-            type = UIDevice.GSM_CMDA
-        case "6,1":
-            name = "5s"
-            type = UIDevice.GSM
-        case "6,2":
-            name = "5s"
-            type = UIDevice.GSM_CMDA
-        case "7,1":
-            name = "6 Plus"
-        case "7,2":
-            name = "6"
-        case "8,1":
-            name = "6s"
-        case "8,2":
-            name = "6s Plus"
-        case "8,4":
-            name = "SE"
-        case "9,1", "9,3":
-            name = "7"
-        case "9,2", "9,4":
-            name = "7 Plus"
-        case "10,1", "10,4":
-            name = "8"
-        case "10,2", "10,5":
-            name = "8 Plus"
-        case "10,3", "10,6":
-            name = "X"
-        default:
-            name = "Unknown \"\(model)\""
-        }
-        
-        if includeType, let type = type {
-            return "iPhone \(name) \(type)"
-        }
-        return "iPhone \(name)"
-    }
-    
-    private func iPodTouchDisplayName(model: String) -> String {
-        let name: String
-        
-        switch model {
-        case "1,1":
-            name = "1st Gen"
-        case "2,1":
-            name = "2nd Gen"
-        case "3,1":
-            name = "3rd Gen"
-        case "4,1":
-            name = "4th Gen"
-        case "5,1":
-            name = "5th Gen"
-        case "7,1":
-            name = "6th Gen"
-        default:
-            name = "Unknown \"\(model)\""
-        }
-        
-        return "iPod Touch \(name)"
-    }
-    
-    private func iPadDisplayName(model: String, includeType: Bool) -> String {
-        let name: String
-        var type: String?
-        
-        switch model {
-        case "1,1":
-            name = "1"
-        case "2,1":
-            name = "2"
-            type = UIDevice.WiFi
-        case "2,2":
-            name = "2"
-            type = UIDevice.GSM
-        case "2,3":
-            name = "2"
-            type = UIDevice.CDMA
-        case "2,4":
-            name = "2"
-            type = UIDevice.WiFi
-        case "2,5":
-            name = "Mini"
-            type = UIDevice.WiFi
-        case "2,6":
-            name = "Mini"
-            type = UIDevice.GSM
-        case "2,7":
-            name = "Mini"
-            type = UIDevice.CDMA
-        case "3,1":
-            name = "3"
-            type = UIDevice.WiFi
-        case "3,2":
-            name = "3"
-            type = UIDevice.GSM
-        case "3,3":
-            name = "3"
-            type = UIDevice.CDMA
-        case "3,4":
-            name = "4"
-            type = UIDevice.WiFi
-        case "3,5":
-            name = "4"
-            type = UIDevice.GSM
-        case "3,6":
-            name = "4"
-            type = UIDevice.GSM_CMDA
-        case "4,1":
-            name = "Air"
-            type = UIDevice.WiFi
-        case "4,2":
-            name = "Air"
-            type = UIDevice.Cellular
-        case "4,3":
-            name = "Air"
-            type = "China"
-        case "4,4":
-            name = "Mini 2"
-            type = UIDevice.WiFi
-        case "4,5":
-            name = "Mini 2"
-            type = UIDevice.Cellular
-        case "4,6":
-            name = "Mini 2"
-            type = "\(UIDevice.Cellular), China"
-        case "4,7":
-            name = "Mini 3"
-            type = UIDevice.WiFi
-        case "4,8":
-            name = "Mini 3"
-            type = UIDevice.Cellular
-        case "4,9":
-            name = "Mini 3"
-            type = "\(UIDevice.Cellular), China"
-        case "5,1":
-            name = "Mini 4"
-            type = UIDevice.WiFi
-        case "5,2":
-            name = "Mini 4"
-            type = UIDevice.Cellular
-        case "5,3":
-            name = "Air 2"
-            type = UIDevice.WiFi
-        case "5,4":
-            name = "Air 2"
-            type = UIDevice.Cellular
-        case "6,3":
-            name = "Pro (9.7 inch)"
-            type = UIDevice.WiFi
-        case "6,4":
-            name = "Pro (9.7 inch)"
-            type = UIDevice.Cellular
-        case "6,7":
-            name = "Pro (12.9 inch)"
-            type = UIDevice.WiFi
-        case "6,8":
-            name = "Pro (12.9 inch)"
-            type = UIDevice.Cellular
-        case "6,11":
-            name = "5"
-            type = UIDevice.WiFi
-        case "6,12":
-            name = "5"
-            type = UIDevice.Cellular
-		case "7,1":
-			name = "Pro (12.9 inch, 2nd Gen)"
-            type = UIDevice.WiFi
-		case "7,2":
-			name = "Pro (12.9 inch, 2nd Gen)"
-            type = UIDevice.Cellular
-		case "7,3":
-			name = "Pro (10.5 inch)"
-            type = UIDevice.WiFi
-		case "7,4":
-			name = "Pro (10.5 inch)"
-            type = UIDevice.Cellular
-		default:
-            name = "Unknown \"\(model)\""
-        }
-        
-        if includeType, let type = type {
-            return "iPad \(name) \(type)"
-        }
-        return "iPad \(name)"
+        return unknownDevice
     }
     
     private func deviceIdentifier() -> String {
@@ -348,6 +136,44 @@ public extension UIDevice {
             
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
+    }
+    
+    private func checkForUpdates() {
+        guard let jsonURL = URL(string: "https://edge.ldscdn.org/mobile/devices.json") else { return }
+        
+        var request = URLRequest(url: jsonURL)
+        request.httpMethod = "HEAD"
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            guard let httpResponse = response as? HTTPURLResponse, let lastModified = httpResponse.allHeaderFields["Last-Modified"] as? String else { return }
+            
+            let currentLastModified = UserDefaults.standard.string(forKey: "UIDevice+DisplayName Last-Modified")
+            if currentLastModified == nil || currentLastModified != lastModified {
+                UserDefaults.standard.set(lastModified, forKey: "UIDevice+DisplayName Last-Modified")
+                self.updateDevices(url: jsonURL)
+            }
+        }.resume()
+    }
+    
+    private func updateDevices(url: URL) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            do {
+                if let error = error {
+                    print("Unable to update devices.json", error)
+                } else if let data = data, let devicesFileURL = UIDevice.devicesFileURL {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    try data.write(to: devicesFileURL, options: .atomic)
+                    
+                    if let deviceTypes = (json as? [String: Any])?["deviceTypes"] as? [String: String] {
+                        UIDevice.deviceTypes = deviceTypes
+                    }
+                    if let devices = (json as? [String: Any])?["devices"] as? [String: Any] {
+                        UIDevice.devices = devices
+                    }
+                }
+            } catch {
+                print("Unable to parse/save devices.json", error)
+            }
+        }.resume()
     }
     
 }
