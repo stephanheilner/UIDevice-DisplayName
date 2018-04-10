@@ -1,5 +1,3 @@
-//  UIDevice+DisplayName.m
-//
 // Copyright (c) 2018 Stephan Heilner
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
