@@ -165,6 +165,26 @@
           "name": "X",
           "type": "GSM+CDMA"
         }
+      },
+      {
+        "iPhone11,2": {
+          "name": "XS"
+        }
+      },
+      {
+        "iPhone11,4": {
+          "name": "XS Max"
+        }
+      },
+      {
+        "iPhone11,6": {
+          "name": "XS Max"
+        }
+      },
+      {
+        "iPhone11,8": {
+          "name": "XR"
+        }
       }
     ],
     "iPad": [
