@@ -24,8 +24,38 @@ private class DummyClassToGetBundle {}
 
 public extension UIDevice {
     
-    fileprivate static let devicesFileURL: URL? = {
-        guard let devicesFileURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last?.appendingPathComponent("UIDevice").appendingPathComponent("devices.json") else { return nil }
+    private var currentETag: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "UIDevice+DisplayName-ETag")
+        }
+        set {
+            if let newValue = newValue {
+                UserDefaults.standard.set(newValue, forKey: "UIDevice+DisplayName-ETag")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "UIDevice+DisplayName-ETag")
+            }
+        }
+    }
+    
+    private var lastUpdated: Date? {
+        get {
+            let timeInterval = UserDefaults.standard.double(forKey: "UIDevice+DisplayName-LastUpdated")
+            return timeInterval > 0 ? Date(timeIntervalSince1970: timeInterval) : nil
+        }
+        set {
+            if let timeInterval = newValue?.timeIntervalSince1970 {
+                UserDefaults.standard.set(timeInterval, forKey: "UIDevice+DisplayName-LastUpdated")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "UIDevice+DisplayName-LastUpdated")
+            }
+        }
+    }
+    
+    private static var isUpdating = false
+    
+    private static let devicesFileURL: URL? = {
+        guard let devicesFileURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last?.appendingPathComponent("UIDevice").appendingPathComponent("devices.json")
+            else { return nil }
         
         if !FileManager.default.fileExists(atPath: devicesFileURL.path) {
             let localFileURL = Bundle(for: DummyClassToGetBundle.self).url(forResource: "devices", withExtension: "json")
@@ -43,8 +73,9 @@ public extension UIDevice {
         return devicesFileURL
     }()
     
-    fileprivate static var deviceTypes: [String: String] = {
-        guard let devicesFileURL = devicesFileURL else { return [:] }
+    private static var deviceTypes: [String: String] = {
+        guard let devicesFileURL = devicesFileURL
+            else { return [:] }
         
         do {
             let jsonData = try Data(contentsOf: devicesFileURL)
@@ -55,7 +86,7 @@ public extension UIDevice {
         }
     }()
     
-    fileprivate static var devices: [String: Any] = {
+    private static var devices: [String: Any] = {
         guard let devicesFileURL = devicesFileURL else { return [:] }
         
         do {
@@ -67,7 +98,7 @@ public extension UIDevice {
         }
     }()
     
-    public func displayName(includeType: Bool = true, deviceIdentifier: String? = nil) -> String {
+    func displayName(includeType: Bool = true, deviceIdentifier: String? = nil) -> String {
         checkForUpdates()
         
         switch deviceIdentifier ?? self.deviceIdentifier() {
@@ -83,6 +114,8 @@ public extension UIDevice {
                 return "Apple TV Simulator"
             case .carPlay:
                 return "CarPlay Simulator"
+            @unknown default:
+                return "Unspecified Simulator"
             }
         case let device:
             for (prefix, name) in UIDevice.deviceTypes {
@@ -130,30 +163,66 @@ public extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         return machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            
+            guard let value = element.value as? Int8, value != 0
+                else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
     }
     
     private func checkForUpdates() {
-        guard let jsonURL = URL(string: "https://edge.ldscdn.org/mobile/devices.json") else { return }
+        guard !UIDevice.isUpdating,
+            let jsonURL = URL(string: "https://edge.ldscdn.org/mobile/devices.json")
+            else { return }
+
+        if let lastUpdated = lastUpdated, Date().timeIntervalSince(lastUpdated) < 86400 {
+            // Only check once every 24 hours (86400 seconds) at most
+            return
+        }
+        
+        UIDevice.isUpdating = true
         
         var request = URLRequest(url: jsonURL)
         request.httpMethod = "HEAD"
-        URLSession.shared.dataTask(with: request) { _, response, error in
-            guard let httpResponse = response as? HTTPURLResponse, let lastModified = httpResponse.allHeaderFields["Last-Modified"] as? String else { return }
+        URLSession.shared.dataTask(with: request) { [weak self] _, response, error in
+            guard let httpResponse = response as? HTTPURLResponse,
+                let currentETag = httpResponse.allHeaderFields["Etag"] as? String
+                else { return }
             
-            let currentLastModified = UserDefaults.standard.string(forKey: "UIDevice+DisplayName Last-Modified")
-            if currentLastModified == nil || currentLastModified != lastModified {
-                UserDefaults.standard.set(lastModified, forKey: "UIDevice+DisplayName Last-Modified")
-                self.updateDevices(url: jsonURL)
+            let needsUpdate: Bool
+            
+            let cachedETag = self?.currentETag
+            if let cachedETag = cachedETag, cachedETag == currentETag {
+                // No changes
+                needsUpdate = false
+            } else if cachedETag == nil {
+                // No ETag is cached
+                
+                let oldKey = "UIDevice+DisplayName Last-Modified"
+                if let currentLastModified = httpResponse.allHeaderFields["Last-Modified"] as? String, let cachedLastModified = UserDefaults.standard.string(forKey: oldKey) {
+                    // We used to use the last modified date, detect if the file has changed, and store the ETag so we can use that moving forward
+                    needsUpdate = cachedLastModified != currentLastModified
+
+                    self?.currentETag = currentETag
+                    UserDefaults.standard.removeObject(forKey: oldKey)
+                } else {
+                    needsUpdate = true
+                }
+            } else {
+                needsUpdate = true
+                self?.currentETag = currentETag
+            }
+            
+            if needsUpdate {
+                self?.updateDevices(url: jsonURL)
+            } else {
+                UIDevice.isUpdating = false
+                self?.lastUpdated = Date()
             }
         }.resume()
     }
     
     private func updateDevices(url: URL) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             do {
                 if let error = error {
                     print("Unable to update devices.json", error)
@@ -171,6 +240,8 @@ public extension UIDevice {
             } catch {
                 print("Unable to parse/save devices.json", error)
             }
+            UIDevice.isUpdating = false
+            self?.lastUpdated = Date()
         }.resume()
     }
     
