@@ -25,9 +25,7 @@ private class DummyClassToGetBundle {}
 public extension UIDevice {
     
     private var currentETag: String? {
-        get {
-            return UserDefaults.standard.string(forKey: "UIDevice+DisplayName-ETag")
-        }
+        get { UserDefaults.standard.string(forKey: "UIDevice+DisplayName-ETag") }
         set {
             if let newValue = newValue {
                 UserDefaults.standard.set(newValue, forKey: "UIDevice+DisplayName-ETag")
@@ -171,11 +169,11 @@ public extension UIDevice {
     
     private func checkForUpdates() {
         guard !UIDevice.isUpdating,
-            let jsonURL = URL(string: "https://edge.ldscdn.org/mobile/devices.json")
+            let jsonURL = URL(string: "https://cdn.churchofjesuschrist.org/mobile/devices.json")
             else { return }
 
-        if let lastUpdated = lastUpdated, Date().timeIntervalSince(lastUpdated) < 86400 {
-            // Only check once every 24 hours (86400 seconds) at most
+        if let lastUpdated = lastUpdated, Date().timeIntervalSince(lastUpdated) < 604800 {
+            // Only check once every week (604800 seconds) at most
             return
         }
         
