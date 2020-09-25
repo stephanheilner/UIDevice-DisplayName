@@ -112,6 +112,8 @@ public extension UIDevice {
                 return "Apple TV Simulator"
             case .carPlay:
                 return "CarPlay Simulator"
+            case .mac:
+                return "Mac Simulator"
             @unknown default:
                 return "Unspecified Simulator"
             }
