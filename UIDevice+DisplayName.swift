@@ -24,17 +24,6 @@ private class DummyClassToGetBundle {}
 
 public extension UIDevice {
     
-    private var currentETag: String? {
-        get { UserDefaults.standard.string(forKey: "UIDevice+DisplayName-ETag") }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.set(newValue, forKey: "UIDevice+DisplayName-ETag")
-            } else {
-                UserDefaults.standard.removeObject(forKey: "UIDevice+DisplayName-ETag")
-            }
-        }
-    }
-    
     private var lastUpdated: Date? {
         get {
             let timeInterval = UserDefaults.standard.double(forKey: "UIDevice+DisplayName-LastUpdated")
@@ -53,7 +42,7 @@ public extension UIDevice {
     
     private static let devicesFileURL: URL? = {
         guard let devicesFileURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last?.appendingPathComponent("UIDevice").appendingPathComponent("devices.json")
-            else { return nil }
+        else { return nil }
         
         if !FileManager.default.fileExists(atPath: devicesFileURL.path) {
             let localFileURL = Bundle(for: DummyClassToGetBundle.self).url(forResource: "devices", withExtension: "json")
@@ -61,6 +50,7 @@ public extension UIDevice {
                 try FileManager.default.createDirectory(at: devicesFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
                 if let localFileURL = localFileURL {
                     try FileManager.default.copyItem(at: localFileURL, to: devicesFileURL)
+                    try FileManager.default.setAttributes([.creationDate: "Sun, 01 Nov 2020 00:00:00 GMT"], ofItemAtPath: devicesFileURL.path)
                 }
             } catch {
                 print("Error copying devices.json file", error)
@@ -73,7 +63,7 @@ public extension UIDevice {
     
     private static var deviceTypes: [String: String] = {
         guard let devicesFileURL = devicesFileURL
-            else { return [:] }
+        else { return [:] }
         
         do {
             let jsonData = try Data(contentsOf: devicesFileURL)
@@ -120,7 +110,7 @@ public extension UIDevice {
         case let device:
             for (prefix, name) in UIDevice.deviceTypes {
                 guard let range = device.range(of: prefix) else { continue }
-
+                
                 return displayName(for: name, prefix: prefix, model: String(device[range.upperBound...]), includeType: includeType)
             }
             return device
@@ -164,71 +154,41 @@ public extension UIDevice {
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         return machineMirror.children.reduce("") { identifier, element in
             guard let value = element.value as? Int8, value != 0
-                else { return identifier }
+            else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
     }
     
     private func checkForUpdates() {
         guard !UIDevice.isUpdating,
-            let jsonURL = URL(string: "https://cdn.churchofjesuschrist.org/mobile/devices.json")
-            else { return }
-
+              let jsonURL = URL(string: "https://cdn.churchofjesuschrist.org/mobile/devices.json")
+        else { return }
+        
         if let lastUpdated = lastUpdated, Date().timeIntervalSince(lastUpdated) < 604800 {
             // Only check once every week (604800 seconds) at most
             return
         }
         
-        UIDevice.isUpdating = true
-        
         var request = URLRequest(url: jsonURL)
-        request.httpMethod = "HEAD"
-        URLSession.shared.dataTask(with: request) { [weak self] _, response, error in
-            guard let httpResponse = response as? HTTPURLResponse,
-                let currentETag = httpResponse.allHeaderFields["Etag"] as? String
-                else { return }
-            
-            let needsUpdate: Bool
-            
-            let cachedETag = self?.currentETag
-            if let cachedETag = cachedETag, cachedETag == currentETag {
-                // No changes
-                needsUpdate = false
-            } else if cachedETag == nil {
-                // No ETag is cached
-                
-                let oldKey = "UIDevice+DisplayName Last-Modified"
-                if let currentLastModified = httpResponse.allHeaderFields["Last-Modified"] as? String, let cachedLastModified = UserDefaults.standard.string(forKey: oldKey) {
-                    // We used to use the last modified date, detect if the file has changed, and store the ETag so we can use that moving forward
-                    needsUpdate = cachedLastModified != currentLastModified
-
-                    self?.currentETag = currentETag
-                    UserDefaults.standard.removeObject(forKey: oldKey)
-                } else {
-                    needsUpdate = true
-                }
-            } else {
-                needsUpdate = true
-                self?.currentETag = currentETag
-            }
-            
-            if needsUpdate {
-                self?.updateDevices(url: jsonURL)
-            } else {
-                UIDevice.isUpdating = false
-                self?.lastUpdated = Date()
-            }
-        }.resume()
-    }
-    
-    private func updateDevices(url: URL) {
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+        if let fileURL = UIDevice.devicesFileURL, let date = try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.creationDate] as? Date {
+            request.setValue(DateFormatter.rfc.string(from: date), forHTTPHeaderField: "If-Modified-Since")
+        }
+        
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            let response = response as? HTTPURLResponse
             do {
-                if let error = error {
+                if let response = response, response.statusCode == 304 {
+                    // Do nothing, file hasn't changed
+                    self?.lastUpdated = Date()
+                } else if let error = error {
                     print("Unable to update devices.json", error)
                 } else if let data = data, let devicesFileURL = UIDevice.devicesFileURL {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     try data.write(to: devicesFileURL, options: .atomic)
+                    
+                    if let lastModifiedString = response?.allHeaderFields["Last-Modified"] as? String, let modifiedDate = DateFormatter.rfc.date(from: lastModifiedString) {
+                        try? FileManager.default.setAttributes([.creationDate: modifiedDate], ofItemAtPath: devicesFileURL.path)
+                    }
                     
                     if let deviceTypes = (json as? [String: Any])?["deviceTypes"] as? [String: String] {
                         UIDevice.deviceTypes = deviceTypes
@@ -236,13 +196,23 @@ public extension UIDevice {
                     if let devices = (json as? [String: Any])?["devices"] as? [String: Any] {
                         UIDevice.devices = devices
                     }
+                    
+                    self?.lastUpdated = Date()
                 }
             } catch {
                 print("Unable to parse/save devices.json", error)
             }
             UIDevice.isUpdating = false
-            self?.lastUpdated = Date()
         }.resume()
     }
     
+}
+
+private extension DateFormatter {
+    static let rfc: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }()
 }
