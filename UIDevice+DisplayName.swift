@@ -50,7 +50,9 @@ public extension UIDevice {
                 try FileManager.default.createDirectory(at: devicesFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
                 if let localFileURL = localFileURL {
                     try FileManager.default.copyItem(at: localFileURL, to: devicesFileURL)
-                    try FileManager.default.setAttributes([.creationDate: "Sun, 01 Nov 2020 00:00:00 GMT"], ofItemAtPath: devicesFileURL.path)
+                    if let creationDate = DateFormatter.rfc.date(from: "Sun, 01 Nov 2020 00:00:00 GMT") {
+                        try FileManager.default.setAttributes([.creationDate: creationDate], ofItemAtPath: devicesFileURL.path)
+                    }
                 }
             } catch {
                 print("Error copying devices.json file", error)
