@@ -20,9 +20,7 @@ let package = Package(
         .target(
             name: "UIDevice-DisplayName",
             dependencies: [],
-            resources: [
-                .process("devices.json")
-            ]
+            resources: [.process("Resources")]
         ),
         .testTarget(
             name: "UIDevice-DisplayNameTests",
