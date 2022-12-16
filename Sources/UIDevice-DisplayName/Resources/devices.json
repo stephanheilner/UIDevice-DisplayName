@@ -5,13 +5,17 @@
         "iPod": "iPod Touch",
         "Watch": "Apple Watch",
         "AppleTV": "Apple TV",
-        "HomePod": "HomePod"
+        "HomePod": "HomePod",
+        "MacBookAir": "MacBook Air",
+        "Mac": "Mac",
+        "MacBookPro": "MacBook Pro",
+        "iMac": "iMac",
+        "Macmini": "Mac mini"
     },
     "devices": {
-        "iPhone": [
-            {
+        "iPhone": [{
                 "iPhone1,1": {
-                    "name": "2G"
+                    "name": "Original"
                 }
             },
             {
@@ -32,14 +36,12 @@
             },
             {
                 "iPhone3,2": {
-                    "name": "4",
-                    "type": "8GB"
+                    "name": "4"
                 }
             },
             {
                 "iPhone3,3": {
-                    "name": "4",
-                    "type": "CDMA"
+                    "name": "4"
                 }
             },
             {
@@ -49,44 +51,37 @@
             },
             {
                 "iPhone5,1": {
-                    "name": "5",
-                    "type": "GSM"
+                    "name": "5"
                 }
             },
             {
                 "iPhone5,2": {
-                    "name": "5",
-                    "type": "GSM+CDMA"
+                    "name": "5"
                 }
             },
             {
                 "iPhone5,3": {
-                    "name": "5c",
-                    "type": "GSM"
+                    "name": "5c"
                 }
             },
             {
                 "iPhone5,4": {
-                    "name": "5c",
-                    "type": "GSM+CDMA"
+                    "name": "5c"
                 }
             },
             {
                 "iPhone6,1": {
-                    "name": "5s",
-                    "type": "GSM"
+                    "name": "5s"
                 }
             },
             {
                 "iPhone6,2": {
-                    "name": "5c",
-                    "type": "GSM+CDMA"
+                    "name": "5s"
                 }
             },
             {
                 "iPhone7,1": {
-                    "name": "6",
-                    "type": "Plus"
+                    "name": "6 Plus"
                 }
             },
             {
@@ -116,14 +111,12 @@
             },
             {
                 "iPhone9,2": {
-                    "name": "7 Plus",
-                    "type": "CDMA"
+                    "name": "7 Plus"
                 }
             },
             {
                 "iPhone9,3": {
-                    "name": "7",
-                    "type": "CDMA"
+                    "name": "7"
                 }
             },
             {
@@ -133,43 +126,37 @@
             },
             {
                 "iPhone10,1": {
-                    "name": "8",
-                    "type": "CDMA"
+                    "name": "8"
                 }
             },
             {
                 "iPhone10,2": {
-                    "name": "8 Plus",
-                    "type": "GSM+CDMA"
+                    "name": "8 Plus"
                 }
             },
             {
                 "iPhone10,3": {
-                    "name": "X",
-                    "type": "GSM"
+                    "name": "X"
                 }
             },
             {
                 "iPhone10,4": {
-                    "name": "8",
-                    "type": "GSM"
+                    "name": "8"
                 }
             },
             {
                 "iPhone10,5": {
-                    "name": "8 Plus",
-                    "type": "GSM"
+                    "name": "8 Plus"
                 }
             },
             {
                 "iPhone10,6": {
-                    "name": "X",
-                    "type": "GSM+CDMA"
+                    "name": "X"
                 }
             },
             {
                 "iPhone11,2": {
-                    "name": "XS"
+                    "name": "Xs"
                 }
             },
             {
@@ -179,8 +166,7 @@
             },
             {
                 "iPhone11,6": {
-                    "name": "XS Max",
-                    "type": "China"
+                    "name": "Xs Max"
                 }
             },
             {
@@ -205,12 +191,12 @@
             },
             {
                 "iPhone12,8": {
-                    "name": "SE (2nd gen)"
+                    "name": "SE (2nd Gen)"
                 }
             },
             {
                 "iPhone13,1": {
-                    "name": "12 Mini"
+                    "name": "12 mini"
                 }
             },
             {
@@ -227,12 +213,56 @@
                 "iPhone13,4": {
                     "name": "12 Pro Max"
                 }
+            },
+            {
+                "iPhone14,2": {
+                    "name": "13 Pro"
+                }
+            },
+            {
+                "iPhone14,3": {
+                    "name": "13 Pro Max"
+                }
+            },
+            {
+                "iPhone14,4": {
+                    "name": "13 mini"
+                }
+            },
+            {
+                "iPhone14,5": {
+                    "name": "13"
+                }
+            },
+            {
+                "iPhone14,6": {
+                    "name": "SE (3rd Gen)"
+                }
+            },
+            {
+                "iPhone14,7": {
+                    "name": "14"
+                }
+            },
+            {
+                "iPhone14,8": {
+                    "name": "14 Plus"
+                }
+            },
+            {
+                "iPhone15,2": {
+                    "name": "14 Pro"
+                }
+            },
+            {
+                "iPhone15,3": {
+                    "name": "14 Pro Max"
+                }
             }
         ],
-        "iPad": [
-            {
+        "iPad": [{
                 "iPad1,1": {
-                    "name": "1"
+                    "name": "Original"
                 }
             },
             {
@@ -243,14 +273,14 @@
             },
             {
                 "iPad2,2": {
-                    "name": "2",
-                    "type": "GSM"
+                    "name": "2 3G (AT&T)",
+                    "type": "Wi-Fi/GSM/GPS"
                 }
             },
             {
                 "iPad2,3": {
-                    "name": "2",
-                    "type": "CDMA"
+                    "name": "2 3G (Verizon)",
+                    "type": "Wi-Fi/CDMA/GPS"
                 }
             },
             {
@@ -261,56 +291,56 @@
             },
             {
                 "iPad2,5": {
-                    "name": "Mini",
+                    "name": "mini",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad2,6": {
-                    "name": "Mini",
-                    "type": "GSM"
+                    "name": "mini",
+                    "type": "Wi-Fi/AT&T/GPS"
                 }
             },
             {
                 "iPad2,7": {
-                    "name": "Mini",
-                    "type": "CDMA"
+                    "name": "mini",
+                    "type": "Wi-Fi/VZ & Sprint/GPS"
                 }
             },
             {
                 "iPad3,1": {
-                    "name": "3",
+                    "name": "3rd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad3,2": {
-                    "name": "3",
-                    "type": "CDMA"
+                    "name": "3rd Gen",
+                    "type": "Wi-Fi/Cellular Verizon/GPS"
                 }
             },
             {
                 "iPad3,3": {
-                    "name": "3",
-                    "type": "GSM"
+                    "name": "3rd Gen",
+                    "type": "W-Fi/Cellular AT&T/GPS"
                 }
             },
             {
                 "iPad3,4": {
-                    "name": "4",
+                    "name": "4th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad3,5": {
-                    "name": "4",
-                    "type": "GSM"
+                    "name": "4th Gen",
+                    "type": "Wi-Fi/AT&T/GPS"
                 }
             },
             {
                 "iPad3,6": {
-                    "name": "4",
-                    "type": "CDMA"
+                    "name": "4th Gen",
+                    "type": "Wi-Fi/Verizon & Sprint/GPS"
                 }
             },
             {
@@ -328,55 +358,55 @@
             {
                 "iPad4,3": {
                     "name": "Air",
-                    "type": "Cellular, China"
+                    "type": "Wi-Fi/TD-LTE - China"
                 }
             },
             {
                 "iPad4,4": {
-                    "name": "Mini 2",
-                    "type": "Wi-Fi"
+                    "name": "mini 2",
+                    "type": "Retina/2nd Gen, Wi-Fi"
                 }
             },
             {
                 "iPad4,5": {
-                    "name": "Mini 2",
-                    "type": "Cellular"
+                    "name": "mini 2",
+                    "type": "Retina/2nd Gen, Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad4,6": {
-                    "name": "Mini 2",
-                    "type": "Cellular, China"
+                    "name": "mini 2",
+                    "type": "Retina/2nd Gen, China"
                 }
             },
             {
                 "iPad4,7": {
-                    "name": "Mini 3",
+                    "name": "mini 3",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad4,8": {
-                    "name": "Mini 3",
-                    "type": "Cellular"
+                    "name": "mini 3",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad4,9": {
-                    "name": "Mini 3",
-                    "type": "Cellular, China"
+                    "name": "mini 3",
+                    "type": "Wi-Fi/Cellular, China"
                 }
             },
             {
                 "iPad5,1": {
-                    "name": "Mini 4",
+                    "name": "mini 4",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad5,2": {
-                    "name": "Mini 4",
-                    "type": "Cellular"
+                    "name": "mini 4",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
@@ -388,7 +418,7 @@
             {
                 "iPad5,4": {
                     "name": "Air 2",
-                    "type": "Cellular"
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
@@ -400,7 +430,7 @@
             {
                 "iPad6,4": {
                     "name": "Pro (9.7 inch)",
-                    "type": "Cellular"
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
@@ -412,31 +442,31 @@
             {
                 "iPad6,8": {
                     "name": "Pro (12.9 inch)",
-                    "type": "Cellular"
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad6,11": {
-                    "name": "5",
+                    "name": "Pro (9.7 inch) 5th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad6,12": {
-                    "name": "5",
-                    "type": "Cellular"
+                    "name": "Pro (9.7 inch) 5th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad7,1": {
-                    "name": "Pro 2 (12.9 inch)",
+                    "name": "Pro (12.9 inch) 2nd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad7,2": {
-                    "name": "Pro 2 (12.9 inch)",
-                    "type": "Cellular"
+                    "name": "Pro (12.9 inch) 2nd Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
@@ -448,30 +478,30 @@
             {
                 "iPad7,4": {
                     "name": "Pro (10.5 inch)",
-                    "type": "Cellular"
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad7,5": {
-                    "name": "6",
+                    "name": "Pro (9.7 inch) 6th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad7,6": {
-                    "name": "6",
-                    "type": "Cellular"
+                    "name": "Pro (9.7 inch) 6th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad7,11": {
-                    "name": "7",
+                    "name": "(10.2 inch) 7th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad7,12": {
-                    "name": "7",
+                    "name": "(10.2 inch) 7th Gen",
                     "type": "Cellular"
                 }
             },
@@ -483,121 +513,240 @@
             },
             {
                 "iPad8,2": {
-                    "name": "Pro (11 inch, 1TB)",
+                    "name": "Pro (11 inch)",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad8,3": {
                     "name": "Pro (11 inch)",
-                    "type": "Cellular"
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad8,4": {
-                    "name": "Pro (11 inch, 1TB)",
-                    "type": "Wi-Fi"
+                    "name": "Pro (11 inch)",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad8,5": {
-                    "name": "Pro 3 (12.9 inch)",
+                    "name": "Pro (12.9 inch) 3rd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad8,6": {
-                    "name": "Pro 3 (12.9 inch, 1TB)",
+                    "name": "Pro (12.9 inch) 3rd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad8,7": {
-                    "name": "Pro 3 (12.9 inch)",
-                    "type": "Cellular"
+                    "name": "Pro (12.9 inch) 3rd Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad8,8": {
-                    "name": "Pro 3 (12.9 inch, 1TB)",
-                    "type": "Cellular"
+                    "name": "Pro (12.9 inch) 3rd Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad8,9": {
-                    "name": "Pro 2 (11 inch)",
+                    "name": "Pro (11 inch) 2nd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad8,10": {
-                    "name": "Pro 2 (11 inch)",
+                    "name": "Pro (11 inch) 2nd Gen",
                     "type": "Cellular"
                 }
             },
             {
                 "iPad8,11": {
-                    "name": "Pro 4 (12.9 inch)",
-                    "type": "Cellular"
+                    "name": "Pro (12.9 inch) 4th Gen",
+                    "type": "Wi-Fi"
                 }
             },
             {
                 "iPad8,12": {
-                    "name": "Pro 4 (12.9 inch)",
-                    "type": "Cellular"
+                    "name": "Pro (12.9 inch) 4th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad11,1": {
-                    "name": "Mini 5",
+                    "name": "mini 5th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad11,2": {
-                    "name": "Mini 5",
-                    "type": "Cellular"
+                    "name": "mini 5th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad11,3": {
-                    "name": "Air 3",
+                    "name": "Air 3rd Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad11,4": {
-                    "name": "Air 3",
-                    "type": "Cellular"
+                    "name": "Air 3rd Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad11,6": {
-                    "name": "8",
+                    "name": "(10.2 inch) 8th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad11,7": {
-                    "name": "8",
-                    "type": "Cellular"
+                    "name": "(10.2 inch) 8th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad12,1": {
+                    "name": "(10.2 inch) 9th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad12,2": {
+                    "name": "(10.2 inch) 9th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad13,1": {
-                    "name": "Air 4",
+                    "name": "Air 4th Gen",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad13,2": {
-                    "name": "Air 4",
-                    "type": "Cellular"
+                    "name": "Air 4th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad13,4": {
+                    "name": "Pro (11 inch) 3rd Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad13,5": {
+                    "name": "Pro (11 inch) 3rd Gen",
+                    "type": "Wi-Fi/Cellular US"
+                }
+            },
+            {
+                "iPad13,6": {
+                    "name": "Pro (11 inch) 3rd Gen",
+                    "type": "Wi-Fi/Cellular Global"
+                }
+            },
+            {
+                "iPad13,7": {
+                    "name": "Pro (11 inch) 3rd Gen",
+                    "type": "Wi-Fi/Cellular China"
+                }
+            },
+            {
+                "iPad13,8": {
+                    "name": "Pro (12.9 inch) 5th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad13,9": {
+                    "name": "Pro (12.9 inch) 5th Gen",
+                    "type": "Wi-Fi/Cellular US"
+                }
+            },
+            {
+                "iPad13,10": {
+                    "name": "Pro (12.9 inch) 5th Gen",
+                    "type": "Wi-Fi/Cellular Global"
+                }
+            },
+            {
+                "iPad13,11": {
+                    "name": "Pro (12.9 inch) 5th Gen",
+                    "type": "Wi-Fi/Cellular China"
+                }
+            },
+            {
+                "iPad13,16": {
+                    "name": "Air 5th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad13,17": {
+                    "name": "Air 5th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad13,18": {
+                    "name": "(10.9 inch) 10th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad13,19": {
+                    "name": "(10.9 inch) 10th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,1": {
+                    "name": "mini 6th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad14,2": {
+                    "name": "mini 6th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,3": {
+                    "name": "Pro (11 inch) 4th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad14,4": {
+                    "name": "Pro (11 inch) 4th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,5": {
+                    "name": "Pro (12.9 inch) 6th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad14,6": {
+                    "name": "Pro (12.9 inch) 6th Gen",
+                    "type": "Wi-Fi/Cellular"
                 }
             }
         ],
-        "iPod Touch": [
-            {
+        "iPod Touch": [{
                 "iPod1,1": {
                     "name": "1st Gen"
                 }
@@ -633,15 +782,14 @@
                 }
             }
         ],
-        "Apple Watch": [
-            {
+        "Apple Watch": [{
                 "Watch1,1": {
-                    "name": "38 mm"
+                    "name": "Series 0, 38mm"
                 }
             },
             {
                 "Watch1,2": {
-                    "name": "42 mm"
+                    "name": "Series 0, 42 mm"
                 }
             },
             {
@@ -678,42 +826,50 @@
             },
             {
                 "Watch3,3": {
-                    "name": "Series 3, 38 mm"
+                    "name": "Series 3, 38 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch3,4": {
-                    "name": "Series 3, 42 mm"
+                    "name": "Series 3, 42 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch4,1": {
-                    "name": "Series 4, 40 mm"
+                    "name": "Series 4, 40 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch4,2": {
-                    "name": "Series 4, 44 mm"
+                    "name": "Series 4, 44 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch4,3": {
-                    "name": "Series 4, 40 mm"
+                    "name": "Series 4, 40 mm",
+                    "type": "Cellular"
                 }
             },
             {
                 "Watch4,4": {
-                    "name": "Series 4, 44 mm"
+                    "name": "Series 4, 44 mm",
+                    "type": "Cellular"
                 }
             },
             {
                 "Watch5,1": {
-                    "name": "Series 5, 40 mm"
+                    "name": "Series 5, 40 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch5,2": {
-                    "name": "Series 5, 44 mm"
+                    "name": "Series 5, 44 mm",
+                    "type": "GPS"
                 }
             },
             {
@@ -730,12 +886,14 @@
             },
             {
                 "Watch5,9": {
-                    "name": "SE, 40 mm"
+                    "name": "SE, 40 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch5,10": {
-                    "name": "SE, 44 mm"
+                    "name": "SE, 44 mm",
+                    "type": "GPS"
                 }
             },
             {
@@ -752,12 +910,14 @@
             },
             {
                 "Watch6,1": {
-                    "name": "Series 6, 40 mm"
+                    "name": "Series 6, 40 mm",
+                    "type": "GPS"
                 }
             },
             {
                 "Watch6,2": {
-                    "name": "Series 6, 44 mm"
+                    "name": "Series 6, 44 mm",
+                    "type": "GPS"
                 }
             },
             {
@@ -771,12 +931,89 @@
                     "name": "Series 6, 44 mm",
                     "type": "Cellular"
                 }
+            },
+            {
+                "Watch6,6": {
+                    "name": "Series 7, 41 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,7": {
+                    "name": "Series 7, 45 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,8": {
+                    "name": "Series 7, 41 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,9": {
+                    "name": "Series 7, 45 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,10": {
+                    "name": "SE 2, 40 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,11": {
+                    "name": "SE 2, 44 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,12": {
+                    "name": "SE 2, 40 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,13": {
+                    "name": "SE 2, 44 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,14": {
+                    "name": "Series 8, 41 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,15": {
+                    "name": "Series 8, 45 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch6,16": {
+                    "name": "Series 8, 41 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,17": {
+                    "name": "Series 8, 45 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch6,18": {
+                    "name": "Ultra, 49 mm",
+                    "type": "Cellular"
+                }
             }
         ],
-        "Apple TV": [
-            {
+        "Apple TV": [{
                 "AppleTV1,1": {
-                    "name": "1st Gen"
+                    "name": "Original/1st Gen"
                 }
             },
             {
@@ -786,29 +1023,36 @@
             },
             {
                 "AppleTV3,1": {
-                    "name": "3rd Gen",
-                    "type": "2012"
+                    "name": "3rd Gen (Early 2012)"
                 }
             },
             {
                 "AppleTV3,2": {
-                    "name": "3rd Gen",
-                    "type": "2013"
+                    "name": "3rd Gen (Early 2013)"
                 }
             },
             {
                 "AppleTV5,3": {
-                    "name": "4th Gen"
+                    "name": "4th Gen (Siri)"
                 }
             },
             {
                 "AppleTV6,2": {
-                    "name": "4K"
+                    "name": "4K (2017, Black Siri Remote)"
+                }
+            },
+            {
+                "AppleTV11,1": {
+                    "name": "4K (2nd Gen, 2021)"
+                }
+            },
+            {
+                "AppleTV14,1": {
+                    "name": "4K (3rd Gen, 2022)"
                 }
             }
         ],
-        "HomePod": [
-            {
+        "HomePod": [{
                 "AudioAccessory1,1": {
                     "name": "HomePod"
                 }
@@ -823,6 +1067,80 @@
                     "name": "HomePod Mini"
                 }
             }
-        ]
+        ],
+        "MacBookAir": [{
+                "MacBookAir10,1": {
+                    "name": "(13 inch) M1"
+                }
+            },
+            {
+                "MacBookAir10,1": {
+                    "name": "(13 inch) M1"
+                }
+            }
+        ],
+        "Mac": [{
+                "Mac13,1": {
+                    "name": "Studio M1 Max"
+                }
+            },
+            {
+                "Mac13,2": {
+                    "name": "Studio M1 Max"
+                }
+            },
+            {
+                "Mac14,2": {
+                    "name": "Book Air (13 inch) M2"
+                }
+            },
+            {
+                "Mac14,7": {
+                    "name": "Book Pro (13 inch) M2"
+                }
+            }
+        ],
+        "MacBookPro": [{
+                "MacBookPro17,1": {
+                    "name": "(13 inch) M1"
+                }
+            },
+            {
+                "MacBookPro18,1": {
+                    "name": "(16 inch) M1 Pro"
+                }
+            },
+            {
+                "MacBookPro18,2": {
+                    "name": "(16 inch) M1 Max"
+                }
+            },
+            {
+                "MacBookPro18,3": {
+                    "name": "(14 inch) M1 Pro"
+                }
+            },
+            {
+                "MacBookPro18,4": {
+                    "name": "(14 inch) M1 Max"
+                }
+            }
+        ],
+        "iMac": [{
+                "iMac21,1": {
+                    "name": "(24 inch) M1"
+                }
+            },
+            {
+                "iMac21,2": {
+                    "name": "(24 inch) M1"
+                }
+            }
+        ],
+        "Macmini": [{
+            "Macmini9,1": {
+                "name": "M1"
+            }
+        }]
     }
 }
