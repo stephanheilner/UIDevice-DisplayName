@@ -166,6 +166,9 @@ public extension UIDevice {
     private func deviceIdentifier() -> String {
         var identifierString: String?
         
+        // This if #available is necessary to prevent a compiler error.
+        // The error shows up even though the package version is set to iOS 14.
+        // Perhaps UIDevice itself supports versions older than iOS 14?
         if #available(iOS 14, *) {
             if ProcessInfo.processInfo.isiOSAppOnMac {
                 var modelSize = 0
