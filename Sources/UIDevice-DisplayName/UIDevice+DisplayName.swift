@@ -26,43 +26,8 @@ private class DummyClassToGetBundle {}
 
 public extension UIDevice {
     
-    private var lastUpdated: Date? {
-        get {
-            let timeInterval = UserDefaults.standard.double(forKey: "UIDevice+DisplayName-LastUpdated")
-            return timeInterval > 0 ? Date(timeIntervalSince1970: timeInterval) : nil
-        }
-        set {
-            if let timeInterval = newValue?.timeIntervalSince1970 {
-                UserDefaults.standard.set(timeInterval, forKey: "UIDevice+DisplayName-LastUpdated")
-            } else {
-                UserDefaults.standard.removeObject(forKey: "UIDevice+DisplayName-LastUpdated")
-            }
-        }
-    }
-    
-    private static var isUpdating = false
-    
     private static let devicesFileURL: URL? = {
-        guard let devicesFileURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last?.appendingPathComponent("UIDevice").appendingPathComponent("devices.json")
-        else { return nil }
-        
-        if !FileManager.default.fileExists(atPath: devicesFileURL.path) {
-            let localFileURL = Bundle.uiDeviceDisplayName.url(forResource: "devices", withExtension: "json")
-            do {
-                try FileManager.default.createDirectory(at: devicesFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
-                if let localFileURL = localFileURL {
-                    try FileManager.default.copyItem(at: localFileURL, to: devicesFileURL)
-                    if let creationDate = DateFormatter.rfc.date(from: "Sun, 01 Nov 2020 00:00:00 GMT") {
-                        try FileManager.default.setAttributes([.creationDate: creationDate], ofItemAtPath: devicesFileURL.path)
-                    }
-                }
-            } catch {
-                print("Error copying devices.json file", error)
-                return localFileURL
-            }
-        }
-        
-        return devicesFileURL
+        return Bundle.uiDeviceDisplayName.url(forResource: "devices", withExtension: "json")
     }()
     
     private static var deviceTypes: [String: String] = {
@@ -79,7 +44,8 @@ public extension UIDevice {
     }()
     
     private static var devices: [String: Any] = {
-        guard let devicesFileURL = devicesFileURL else { return [:] }
+        guard let devicesFileURL = devicesFileURL
+        else { return [:] }
         
         do {
             let jsonData = try Data(contentsOf: devicesFileURL)
@@ -110,8 +76,6 @@ public extension UIDevice {
     }
     
     func displayName(includeType: Bool = true, deviceIdentifier: String? = nil) -> String {
-        checkForUpdates()
-        
         switch deviceIdentifier ?? self.deviceIdentifier() {
         case let x86Simulator where x86Simulator.hasPrefix("x86"):
             return simulatorName
@@ -141,7 +105,9 @@ public extension UIDevice {
         var type: String?
         
         for device in devices {
-            guard let deviceIdentifier = device.keys.first, deviceIdentifier == "\(prefix)\(model)" else { continue }
+            guard let deviceIdentifier = device.keys.first,
+                  deviceIdentifier == "\(prefix)\(model)"
+            else { continue }
             
             for (key, value) in device.values.first as? [String: String] ?? [:] {
                 switch key {
@@ -198,63 +164,6 @@ public extension UIDevice {
             }
         }
     }
-    
-    private func checkForUpdates() {
-        guard !UIDevice.isUpdating,
-              let jsonURL = URL(string: "https://cdn.churchofjesuschrist.org/mobile/devices.json")
-        else { return }
-        
-        if let lastUpdated = lastUpdated, Date().timeIntervalSince(lastUpdated) < 604800 {
-            // Only check once every week (604800 seconds) at most
-            return
-        }
-        
-        var request = URLRequest(url: jsonURL)
-        if let fileURL = UIDevice.devicesFileURL, let date = try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.creationDate] as? Date {
-            request.setValue(DateFormatter.rfc.string(from: date), forHTTPHeaderField: "If-Modified-Since")
-        }
-        
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            let response = response as? HTTPURLResponse
-            do {
-                if let response = response, response.statusCode == 304 {
-                    // Do nothing, file hasn't changed
-                    self?.lastUpdated = Date()
-                } else if let error = error {
-                    print("Unable to update devices.json", error)
-                } else if let data = data, let devicesFileURL = UIDevice.devicesFileURL {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    try data.write(to: devicesFileURL, options: .atomic)
-                    
-                    if let lastModifiedString = response?.allHeaderFields["Last-Modified"] as? String, let modifiedDate = DateFormatter.rfc.date(from: lastModifiedString) {
-                        try? FileManager.default.setAttributes([.creationDate: modifiedDate], ofItemAtPath: devicesFileURL.path)
-                    }
-                    
-                    if let deviceTypes = (json as? [String: Any])?["deviceTypes"] as? [String: String] {
-                        UIDevice.deviceTypes = deviceTypes
-                    }
-                    if let devices = (json as? [String: Any])?["devices"] as? [String: Any] {
-                        UIDevice.devices = devices
-                    }
-                    
-                    self?.lastUpdated = Date()
-                }
-            } catch {
-                print("Unable to parse/save devices.json", error)
-            }
-            UIDevice.isUpdating = false
-        }.resume()
-    }
-    
-}
-
-private extension DateFormatter {
-    static let rfc: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter
-    }()
 }
 
 #endif
