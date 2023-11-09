@@ -258,6 +258,26 @@
                 "iPhone15,3": {
                     "name": "14 Pro Max"
                 }
+            },
+            {
+                "iPhone15,4": {
+                    "name": "15"
+                }
+            },
+            {
+                "iPhone15,5": {
+                    "name": "15 Plus"
+                }
+            },
+            {
+                "iPhone16,1": {
+                    "name": "15 Pro"
+                }
+            },
+            {
+                "iPhone16,2": {
+                    "name": "15 Pro Max"
+                }
             }
         ],
         "iPad": [{
@@ -1009,6 +1029,36 @@
                     "name": "Ultra, 49 mm",
                     "type": "Cellular"
                 }
+            },
+            {
+                "Watch7,1": {
+                    "name": "Series 9, 41 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch7,2": {
+                    "name": "Series 9, 45 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch7,3": {
+                    "name": "Series 9, 41 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch7,4": {
+                    "name": "Series 9, 45 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch7,5": {
+                    "name": "Ultra 2, 49 mm",
+                    "type": "Cellular"
+                }
             }
         ],
         "Apple TV": [{
@@ -1086,7 +1136,7 @@
             },
             {
                 "Mac13,2": {
-                    "name": "Studio M1 Max"
+                    "name": "Studio M1 Ultra"
                 }
             },
             {
@@ -1095,8 +1145,53 @@
                 }
             },
             {
+                "Mac14,5": {
+                    "name": "Book Pro (14 inch) M2 Max"
+                }
+            },
+            {
+                "Mac14,6": {
+                    "name": "Book Pro (16 inch) M2 Max"
+                }
+            },
+            {
                 "Mac14,7": {
                     "name": "Book Pro (13 inch) M2"
+                }
+            },
+            {
+                "Mac14,8": {
+                    "name": "Pro M2 Ultra"
+                }
+            },
+            {
+                "Mac14,9": {
+                    "name": "Book Pro (14 inch) M2 Pro"
+                }
+            },
+            {
+                "Mac14,10": {
+                    "name": "Book Pro (16 inch) M2 Pro"
+                }
+            },
+            {
+                "Mac14,12": {
+                    "name": "mini M2 Pro"
+                }
+            },
+            {
+                "Mac14,13": {
+                    "name": "mini M2/Studio M2 Max"
+                }
+            },
+            {
+                "Mac14,14": {
+                    "name": "Studio M2 Ultra"
+                }
+            },
+            {
+                "Mac14,15": {
+                    "name": "Book Air (15 inch) M2"
                 }
             }
         ],
@@ -1137,10 +1232,12 @@
                 }
             }
         ],
-        "Macmini": [{
-            "Macmini9,1": {
-                "name": "M1"
+        "Macmini": [
+            {
+                "Macmini9,1": {
+                    "name": "M1"
+                }
             }
-        }]
+        ]
     }
 }
