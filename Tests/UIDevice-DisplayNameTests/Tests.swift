@@ -28,9 +28,8 @@ import UIKit
 class Tests: XCTestCase {
     
     func testPrint() {
-        print(UIDevice.current.displayName)
+        print("Display name: \(UIDevice.current.displayName())")
     }
-    
 }
 
 #endif
