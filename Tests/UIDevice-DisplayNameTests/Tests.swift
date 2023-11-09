@@ -28,9 +28,12 @@ import UIKit
 class Tests: XCTestCase {
     
     func testPrint() {
-        print(UIDevice.current.displayName)
+        print("Display name: \(UIDevice.current.displayName())")
+        print("Version: \(UIDevice.current.systemVersion)")
+        print("Model: \(UIDevice.current.model)")
+        print("System name: \(UIDevice.current.systemName)")
+        print("Localized model: \(UIDevice.current.localizedModel)")
     }
-    
 }
 
 #endif
