@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'UIDevice-DisplayName'
-  s.version      = '4.3.1'
+  s.version      = '4.4.4'
   s.summary      = 'Returns a friendly name for any iOS device.'
   s.author       = 'Stephan Heilner'
   s.homepage     = 'https://github.com/stephanheilner/UIDevice-DisplayName'
@@ -13,9 +13,8 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => 'https://github.com/stephanheilner/UIDevice-DisplayName.git', :tag => s.version.to_s }
   s.ios.deployment_target = '12.0'
-  s.tvos.deployment_target = '12.0'
-  s.source_files  = 'Sources/UIDevice-DisplayName/UIDevice+DisplayName.{swift}'
-  s.resources    = 'Resources/UIDevice-DisplayName/*.json'
+  s.source_files  = 'Sources/UIDevice-DisplayName/*.{swift}'
+  s.resources    = 'Sources/UIDevice-DisplayName/Resources/*.json'
   s.requires_arc = true
   s.swift_version = '5.0'
 end

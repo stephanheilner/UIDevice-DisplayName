@@ -7,7 +7,7 @@ let package = Package(
     name: "UIDevice-DisplayName",
     platforms: [
         .iOS(.v12),
-        .tvOS(.v12)
+        .tvOS(.v12),
     ],
     products: [
         .library(
