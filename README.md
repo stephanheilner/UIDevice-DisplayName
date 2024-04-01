@@ -11,6 +11,11 @@ Returns a friendly name for an iOS device, which also includes the device type (
 
 UIDevice-DisplayName is available under the MIT license. See the LICENSE file for more info.
 
+
+## Privacy Manifest
+
+* This package collects & reports the name of the device model. It does not collect the device id or any user-specific data.
+
 ## Usage
 
 ```swift
