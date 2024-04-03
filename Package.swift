@@ -20,7 +20,8 @@ let package = Package(
         .target(
             name: "UIDevice-DisplayName",
             dependencies: [],
-            resources: [.process("Resources")]
+            path: "Sources/UIDevice-DisplayName",
+            resources: [.process("Resources"), .copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "UIDevice-DisplayNameTests",
