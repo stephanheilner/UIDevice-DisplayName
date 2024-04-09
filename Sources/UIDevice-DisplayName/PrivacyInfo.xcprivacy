@@ -17,6 +17,10 @@
             <array>
                 <string>NSPrivacyCollectedDataTypePurposeOther</string>
             </array>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
         </dict>
     </array>
 </dict>
