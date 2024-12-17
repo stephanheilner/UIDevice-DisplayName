@@ -278,6 +278,26 @@
                 "iPhone16,2": {
                     "name": "15 Pro Max"
                 }
+            },
+            {
+                "iPhone17,1": {
+                    "name": "16 Pro"
+                }
+            },
+            {
+                "iPhone17,2": {
+                    "name": "16 Pro Max"
+                }
+            },
+            {
+                "iPhone17,3": {
+                    "name": "16"
+                }
+            },
+            {
+                "iPhone17,4": {
+                    "name": "16 Plus"
+                }
             }
         ],
         "iPad": [{
@@ -762,6 +782,60 @@
             {
                 "iPad14,6": {
                     "name": "Pro (12.9 inch) 6th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,3": {
+                    "name": "iPad Pro (11 inch) 4th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,8": {
+                    "name": "iPad Air 6th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad14,9": {
+                    "name": "iPad Air 6th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad14,10": {
+                    "name": "iPad Air 7th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad14,11": {
+                    "name": "iPad Air 7th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad16,3": {
+                    "name": "iPad Pro M4 (11 inch) 5th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad16,4": {
+                    "name": "iPad Pro M4 (11 inch) 5th Gen",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad16,5": {
+                    "name": "iPad Pro M4 (12.9 inch) 7th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad16,6": {
+                    "name": "iPad Pro M4 (12.9 inch) 7th Gen",
                     "type": "Wi-Fi/Cellular"
                 }
             }
