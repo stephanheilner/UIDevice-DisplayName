@@ -1,0 +1,34 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+
+pr:
+- main
+
+trigger:
+- main
+
+pool:
+  name: 'osx'
+  demands:
+  - xcodeVersion -equals latest
+
+variables:
+- group: ios-variable-group
+
+steps:
+
+- task: InstallSSHKey@0
+  inputs:
+    knownHostsEntry: $(github_known_host)
+    sshKeySecureFile: 'buildmachine_sshkey'
+    displayName: "Create SSH files"
+
+- script: "xcodebuild -scheme UIDevice-DisplayName -destination 'platform=iOS Simulator,name=iPhone 16' clean test"
+
+- script: "xcodebuild -scheme UIDevice-DisplayName -destination 'generic/platform=macOS' build"
+
+- script: "xcodebuild -scheme UIDevice-DisplayName -destination 'generic/platform=watchOS' build"
+
+- script: "xcodebuild -scheme UIDevice-DisplayName -destination 'generic/platform=tvOS' build"
