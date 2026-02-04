@@ -298,6 +298,11 @@
                 "iPhone17,4": {
                     "name": "16 Plus"
                 }
+            },
+            {
+                "iPhone17,5": {
+                    "name": "16e"
+                }
             }
         ],
         "iPad": [{
@@ -786,56 +791,62 @@
                 }
             },
             {
-                "iPad14,3": {
-                    "name": "iPad Pro (11 inch) 4th Gen",
-                    "type": "Wi-Fi/Cellular"
-                }
-            },
-            {
                 "iPad14,8": {
-                    "name": "iPad Air 6th Gen",
+                    "name": "Air 11 inch (M2)",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad14,9": {
-                    "name": "iPad Air 6th Gen",
+                    "name": "Air 11 inch (M2)",
                     "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad14,10": {
-                    "name": "iPad Air 7th Gen",
+                    "name": "Air 13 inch (M2)",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad14,11": {
-                    "name": "iPad Air 7th Gen",
+                    "name": "Air 13 inch (M2)",
                     "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad16,3": {
-                    "name": "iPad Pro M4 (11 inch) 5th Gen",
+                    "name": "Pro 11 inch (M4)",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad16,4": {
-                    "name": "iPad Pro M4 (11 inch) 5th Gen",
+                    "name": "Pro 11 inch (M4)",
                     "type": "Wi-Fi/Cellular"
                 }
             },
             {
                 "iPad16,5": {
-                    "name": "iPad Pro M4 (12.9 inch) 7th Gen",
+                    "name": "Pro 13 inch (M4)",
                     "type": "Wi-Fi"
                 }
             },
             {
                 "iPad16,6": {
-                    "name": "iPad Pro M4 (12.9 inch) 7th Gen",
+                    "name": "Pro 13 inch (M4)",
+                    "type": "Wi-Fi/Cellular"
+                }
+            },
+            {
+                "iPad16,1": {
+                    "name": "mini 7th Gen",
+                    "type": "Wi-Fi"
+                }
+            },
+            {
+                "iPad16,2": {
+                    "name": "mini 7th Gen",
                     "type": "Wi-Fi/Cellular"
                 }
             }
@@ -1133,6 +1144,30 @@
                     "name": "Ultra 2, 49 mm",
                     "type": "Cellular"
                 }
+            },
+            {
+                "Watch7,8": {
+                    "name": "Series 10, 42 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch7,9": {
+                    "name": "Series 10, 46 mm",
+                    "type": "GPS"
+                }
+            },
+            {
+                "Watch7,10": {
+                    "name": "Series 10, 42 mm",
+                    "type": "Cellular"
+                }
+            },
+            {
+                "Watch7,11": {
+                    "name": "Series 10, 46 mm",
+                    "type": "Cellular"
+                }
             }
         ],
         "Apple TV": [{
@@ -1189,6 +1224,11 @@
             {
                 "AudioAccessory5,1": {
                     "name": "HomePod Mini"
+                }
+            },
+            {
+                "AudioAccessory6,1": {
+                    "name": "HomePod 2nd Gen"
                 }
             }
         ],
@@ -1266,6 +1306,116 @@
             {
                 "Mac14,15": {
                     "name": "Book Air (15 inch) M2"
+                }
+            },
+            {
+                "Mac15,3": {
+                    "name": "Book Pro (14 inch) M3"
+                }
+            },
+            {
+                "Mac15,4": {
+                    "name": "iMac (24 inch) M3"
+                }
+            },
+            {
+                "Mac15,5": {
+                    "name": "iMac (24 inch) M3"
+                }
+            },
+            {
+                "Mac15,6": {
+                    "name": "Book Pro (14 inch) M3 Pro"
+                }
+            },
+            {
+                "Mac15,7": {
+                    "name": "Book Pro (16 inch) M3 Pro"
+                }
+            },
+            {
+                "Mac15,8": {
+                    "name": "Book Pro (14 inch) M3 Max"
+                }
+            },
+            {
+                "Mac15,9": {
+                    "name": "Book Pro (16 inch) M3 Max"
+                }
+            },
+            {
+                "Mac15,10": {
+                    "name": "Book Pro (14 inch) M3 Max"
+                }
+            },
+            {
+                "Mac15,11": {
+                    "name": "Book Pro (16 inch) M3 Max"
+                }
+            },
+            {
+                "Mac15,12": {
+                    "name": "Book Air (13 inch) M3"
+                }
+            },
+            {
+                "Mac15,13": {
+                    "name": "Book Air (15 inch) M3"
+                }
+            },
+            {
+                "Mac16,1": {
+                    "name": "Book Pro (14 inch) M4"
+                }
+            },
+            {
+                "Mac16,2": {
+                    "name": "iMac (24 inch) M4"
+                }
+            },
+            {
+                "Mac16,3": {
+                    "name": "iMac (24 inch) M4"
+                }
+            },
+            {
+                "Mac16,5": {
+                    "name": "Book Pro (16 inch) M4 Max"
+                }
+            },
+            {
+                "Mac16,6": {
+                    "name": "Book Pro (14 inch) M4 Max"
+                }
+            },
+            {
+                "Mac16,7": {
+                    "name": "Book Pro (16 inch) M4 Pro"
+                }
+            },
+            {
+                "Mac16,8": {
+                    "name": "Book Pro (14 inch) M4 Pro"
+                }
+            },
+            {
+                "Mac16,10": {
+                    "name": "mini M4"
+                }
+            },
+            {
+                "Mac16,11": {
+                    "name": "mini M4 Pro"
+                }
+            },
+            {
+                "Mac16,12": {
+                    "name": "Book Air (13 inch) M4"
+                }
+            },
+            {
+                "Mac16,13": {
+                    "name": "Book Air (15 inch) M4"
                 }
             }
         ],
